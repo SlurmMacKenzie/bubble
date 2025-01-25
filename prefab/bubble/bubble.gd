@@ -63,5 +63,6 @@ func pop(show_dots: bool):
 	%Line2D.visible = false
 	%Dots.visible = show_dots
 	%CollisionShape2D.set_deferred("disabled", true)
+	%Pop.play()
 	#tween_fadeout = create_tween()
 	#tween_fadeout.tween_property(self, "modulate:a", 0.0, 0.03).connect("finished", on_fadeout_end)
