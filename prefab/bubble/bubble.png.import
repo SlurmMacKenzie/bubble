@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6ptpodtycu0l"
-path="res://.godot/imported/planet.png-eb68847ee4d8480357d7f4bf751a2e15.ctex"
+uid="uid://dlfvlm5jwmdkk"
+path="res://.godot/imported/bubble.png-343397ee5a3ed76d7f139ce3a7272f15.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://prefab/planet/planet.png"
-dest_files=["res://.godot/imported/planet.png-eb68847ee4d8480357d7f4bf751a2e15.ctex"]
+source_file="res://prefab/bubble/bubble.png"
+dest_files=["res://.godot/imported/bubble.png-343397ee5a3ed76d7f139ce3a7272f15.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=4
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

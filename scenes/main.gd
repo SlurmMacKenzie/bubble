@@ -9,7 +9,7 @@ func _process(delta: float) -> void:
 
 		
 func _input(event: InputEvent) -> void:
-	if Input.is_action_pressed("debug"):
+	if Input.is_action_just_released("debug"):
 		imgui = !imgui
 	if Input.is_action_just_pressed("pause"):
 		pauseMenu()
