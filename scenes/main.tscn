@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vw3jo"]
 [ext_resource type="PackedScene" uid="uid://b57us8ouiqsvk" path="res://prefab/planet/planet.tscn" id="3_4t5cn"]
 [ext_resource type="PackedScene" uid="uid://conbxr1qqochx" path="res://prefab/ship/ship.tscn" id="3_an2gp"]
-[ext_resource type="PackedScene" path="res://pausemenu.tscn" id="4_38enr"]
+[ext_resource type="PackedScene" uid="uid://30wnxmw6s71x" path="res://pausemenu.tscn" id="4_38enr"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_vw3jo")
