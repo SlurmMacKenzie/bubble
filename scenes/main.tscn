@@ -1,10 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpdjdd43o5hs3"]
+[gd_scene load_steps=4 format=3 uid="uid://dpdjdd43o5hs3"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vw3jo"]
+[ext_resource type="PackedScene" uid="uid://b57us8ouiqsvk" path="res://prefab/planet/planet.tscn" id="3_4t5cn"]
 [ext_resource type="PackedScene" uid="uid://conbxr1qqochx" path="res://prefab/ship/ship.tscn" id="3_an2gp"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_vw3jo")
 
 [node name="Ship" parent="." instance=ExtResource("3_an2gp")]
-position = Vector2(432, 396)
+position = Vector2(443, 337)
+
+[node name="Planet" parent="." instance=ExtResource("3_4t5cn")]
+position = Vector2(600, 300)
+scale = Vector2(0.2, 0.2)
