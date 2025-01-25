@@ -9,6 +9,9 @@ var imgui:bool = false
 @onready var pause_menu =  $PauseMenu
 var is_paused = false
 
+func _on_ready() -> void:
+	GameState.game_state_changed.connect(onGameStateChanged)
+	
 func _process(delta: float) -> void:
 	if imgui:
 		Debug.do_imgui()
@@ -21,7 +24,7 @@ func _input(event: InputEvent) -> void:
 		pauseMenu()
 	if Input.is_action_just_pressed("debug_changestate"):
 		GameState._changeState()
-		onGameStateChanged()
+		GameState.game_state_changed.emit()
 
 func pauseMenu():
 	if is_paused:

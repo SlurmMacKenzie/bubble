@@ -19,7 +19,7 @@ debug_color = Color(0.972549, 0.0196078, 0.415686, 0.815686)
 [node name="Line2D" type="Line2D" parent="."]
 position = Vector2(2, 7)
 points = PackedVector2Array(22, -1, 16, -9, 8, -12, -10, -12, -19, -9, -26, 0)
-default_color = Color(1, 0.054902, 1, 1)
+default_color = Color(1, 0.345098, 0.564706, 1)
 
 [node name="move_shield" type="Node" parent="."]
 script = ExtResource("1_aefbi")

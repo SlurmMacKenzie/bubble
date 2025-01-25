@@ -1,0 +1,56 @@
+[gd_scene load_steps=14 format=3 uid="uid://c2jkoaxc73kcu"]
+
+[ext_resource type="PackedScene" uid="uid://bohrque8lr3l4" path="res://assets/art/planet.blend" id="1_pchat"]
+[ext_resource type="Script" path="res://prefab/planet/planet_animated.gd" id="2_7e41y"]
+[ext_resource type="Material" uid="uid://bfxtxthg770tp" path="res://assets/art/textures/mat_palette.tres" id="2_mdl7f"]
+[ext_resource type="Texture2D" uid="uid://do2otj1otljxn" path="res://assets/art/textures/red_yellow.png" id="3_v3h6w"]
+[ext_resource type="Texture2D" uid="uid://dfboxjkpb1uao" path="res://assets/art/textures/blue_white.png" id="4_mfj5w"]
+[ext_resource type="Texture2D" uid="uid://ce5hrnwt7rtti" path="res://assets/art/textures/orange_purple.png" id="5_llrrc"]
+[ext_resource type="Texture2D" uid="uid://d4jufqra40of8" path="res://assets/art/textures/yellow_blue.png" id="6_tk47i"]
+[ext_resource type="Texture2D" uid="uid://cn6k6ikgst2qm" path="res://assets/art/textures/yellow_green.png" id="7_xnv2t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_65buk"]
+shading_mode = 0
+albedo_texture = ExtResource("3_v3h6w")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eol8v"]
+shading_mode = 0
+albedo_texture = ExtResource("4_mfj5w")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1ivyd"]
+shading_mode = 0
+albedo_texture = ExtResource("5_llrrc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8qj2"]
+shading_mode = 0
+albedo_texture = ExtResource("6_tk47i")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3a2kl"]
+shading_mode = 0
+albedo_texture = ExtResource("7_xnv2t")
+
+[node name="planet" instance=ExtResource("1_pchat")]
+script = ExtResource("2_7e41y")
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(0.707107, -1.37679e-07, 3.09086e-08, 0.707107)
+bones/2/rotation = Quaternion(0.687333, 0.166053, -0.166053, 0.687333)
+bones/3/rotation = Quaternion(0.545427, 0.450011, -0.450011, 0.545427)
+bones/4/rotation = Quaternion(-0.0373564, 0.706119, -0.706119, -0.0373562)
+bones/5/position = Vector3(0.000772244, 0.0412077, -0.0127149)
+bones/5/rotation = Quaternion(0.572249, -0.415369, 0.415369, 0.572248)
+bones/6/rotation = Quaternion(0.681073, 0.190106, -0.190106, 0.681072)
+bones/7/rotation = Quaternion(-0.707107, -4.60195e-08, -4.60195e-08, 0.707107)
+bones/8/position = Vector3(-0.00240191, 0.0412077, -0.00637241)
+bones/8/rotation = Quaternion(0.57225, 0.415368, -0.415368, 0.57225)
+bones/9/rotation = Quaternion(-0.494078, -0.505852, 0.505852, -0.494078)
+bones/10/rotation = Quaternion(0.29463, -0.642801, 0.642801, 0.29463)
+bones/11/rotation = Quaternion(0.264468, 0.655787, -0.655787, 0.264468)
+
+[node name="circle4" parent="Armature/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("2_mdl7f")
+surface_material_override/1 = SubResource("StandardMaterial3D_65buk")
+surface_material_override/2 = SubResource("StandardMaterial3D_eol8v")
+surface_material_override/3 = SubResource("StandardMaterial3D_1ivyd")
+surface_material_override/4 = SubResource("StandardMaterial3D_y8qj2")
+surface_material_override/5 = SubResource("StandardMaterial3D_3a2kl")
