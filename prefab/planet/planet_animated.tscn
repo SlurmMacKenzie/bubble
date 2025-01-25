@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://d4jufqra40of8" path="res://assets/art/textures/yellow_blue.png" id="6_tk47i"]
 [ext_resource type="Texture2D" uid="uid://cn6k6ikgst2qm" path="res://assets/art/textures/yellow_green.png" id="7_xnv2t"]
 
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_65buk"]
 shading_mode = 0
 albedo_texture = ExtResource("3_v3h6w")
