@@ -8,8 +8,6 @@ class_name Bubble
 var tween_fadeout:Tween
 var osc_force:float = 0.0
 
-var bubble_count:int = 3
-
 var detached = false
 var poped = false
 var ship_in_bubble = false
