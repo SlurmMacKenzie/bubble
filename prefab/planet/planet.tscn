@@ -1,5 +1,5 @@
 
-[gd_scene load_steps=8 format=3 uid="uid://b57us8ouiqsvk"]
+[gd_scene load_steps=9 format=3 uid="uid://b57us8ouiqsvk"]
 
 [ext_resource type="Script" path="res://prefab/planet/planet.gd" id="1_fnuhf"]
 [ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="1_h4k53"]
