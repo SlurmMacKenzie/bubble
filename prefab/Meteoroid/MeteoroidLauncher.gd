@@ -22,7 +22,6 @@ var collisionDistanceSqr:float;
 var gravityCentrePos:Vector2
 var gravityCentreLocalPos:Vector2
 
-
 # Simulation sanity limits
 @export var maxSimulationDays:int = 10
 # should also do a max distance from the screen centre, etc.
@@ -31,6 +30,11 @@ var gravityCentreLocalPos:Vector2
 var stepPos:Vector2;
 var stepVel:Vector2;
 var collisionPoint:Vector2;
+
+# The data that I want to be available to the rest of the game:
+# ghost positions
+# impact position
+# line points
 
 func _ready() -> void:
 	stepPos = global_position;
