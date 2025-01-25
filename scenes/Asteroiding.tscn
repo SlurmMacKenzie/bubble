@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://dglotf2i3f72e"]
+
+[ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="1_dyj5m"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xh6w4"]
+radius = 10.5223
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_nsbbp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0dt0"]
+
+[node name="Asteroiding" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_xh6w4")
+
+[node name="Meteor0" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_nsbbp")
+position = Vector2(313, 228)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_dyj5m")
+
+[node name="Earth" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_nsbbp")
+position = Vector2(578, 324)
+texture = ExtResource("1_dyj5m")
+
+[node name="GravityField" type="Area2D" parent="Earth"]
+visible = false
+scale = Vector2(100, 100)
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = 1000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Earth/GravityField"]
+shape = SubResource("RectangleShape2D_s0dt0")
