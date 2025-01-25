@@ -20,16 +20,16 @@ func _physics_process(delta: float) -> void:
 	draw_bubble()
 	
 	if radius > max_radius and freeze:
-		freeze = false
-		detached = true
-		tween_fadeout = create_tween()
-		tween_fadeout.tween_property(self, "modulate:a", 0.0, 1.5).connect("finished", on_fadeout_end)
+		pop(true)
 
 func on_fadeout_end():
-	self.get_parent().remove_child(self)
-	self.queue_free()
+	pass
+	#self.get_parent().remove_child(self)
+	#self.queue_free()
 	
 func draw_bubble():
+	if detached:
+		return
 	var pos_list: PackedVector2Array = PackedVector2Array()
 	var step = (2 * PI) / sample_size
 	for point in range(sample_size):
@@ -41,6 +41,7 @@ func draw_bubble():
 	%CollisionShape2D.shape.radius = radius
 	pos_list.append(pos_list[0])
 	%Line2D.points = pos_list
+	%Dots.points = pos_list
 	%BubbleVisual.texture_scale = Vector2(radius,radius)
 	%BubbleVisual.scale = Vector2(1 + sin(Time.get_ticks_msec() * 0.01) * osc_force, 1 + cos(Time.get_ticks_msec() * 0.01) * osc_force)
 	osc_force = lerpf(osc_force, 0, 0.1)
@@ -52,3 +53,15 @@ func update_position(pos: Vector2):
 
 func get_height(radian: float) -> float:
 	return radius  + sqrt(radius) * wobble_weight *  noise1.get_noise_2d(cos(radian) * (Time.get_ticks_msec() + 5) * wobble_speed, sin(radian) * Time.get_ticks_msec() * wobble_speed)
+
+func pop(show_dots: bool):
+	freeze = false
+	detached = true
+	%CPUParticles2D.emission_sphere_radius = radius
+	%CPUParticles2D.emitting = true
+	%BubbleVisual.visible = false
+	%Line2D.visible = false
+	%Dots.visible = show_dots
+	%CollisionShape2D.set_deferred("disabled", true)
+	#tween_fadeout = create_tween()
+	#tween_fadeout.tween_property(self, "modulate:a", 0.0, 0.03).connect("finished", on_fadeout_end)
