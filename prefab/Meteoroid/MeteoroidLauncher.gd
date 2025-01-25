@@ -30,6 +30,7 @@ var gravityCentreLocalPos:Vector2
 # Don't think I can pass by ref. Extending scope for step variables here for access across class:
 var stepPos:Vector2;
 var stepVel:Vector2;
+var collisionPoint:Vector2;
 
 func _ready() -> void:
 	stepPos = global_position;
@@ -70,15 +71,24 @@ func update_simulation_visual() -> void:
 	# update this to a while loop with exit conditions
 	var bCollided:bool = false
 	for ghost in spawnedGhostNodes:
+		var bCollidedThisDay:bool = false
 		for step in range(simulationStepsPerDay):
 			if !bCollided:
-				bCollided = step_simulation(simulationTimeStep, stepI)
-				pos_list.append(stepPos)
+				bCollidedThisDay = step_simulation(simulationTimeStep, stepI)
+				if bCollidedThisDay:
+					bCollided = true
+					pos_list.append(collisionPoint)
+				else:
+					pos_list.append(stepPos)
 			stepI +=1
-			# if bCollided: break??
+		
+		if bCollidedThisDay:
+			%CollisionSprite.position = collisionPoint
+
 		ghost.position = stepPos
 		ghost.visible = !bCollided
 	
+	%CollisionSprite.visible = bCollided
 	%LaunchSimulationLine.points = pos_list
 
 # Returns true if impact
@@ -89,9 +99,7 @@ func step_simulation(timeStep: float, stepI: int) -> bool:
 	var toGravityCentreDistSqr = toGravityCentre.length_squared()
 	
 	if toGravityCentreDistSqr < collisionDistanceSqr:
-		print_debug(stepI)
 		return true
-		#if we collided, we should go back and find the point of collision
 	
 	var gravityStrength:float = gravityStrengthMult
 	match orbitPhysicsType:
@@ -112,7 +120,38 @@ func step_simulation(timeStep: float, stepI: int) -> bool:
 	
 	var externalForcesAccumulated:Vector2 = gravityForce + dragForce
 	
-	stepVel += externalForcesAccumulated * timeStep
-	stepPos += stepVel * timeStep
+	var nextStepVel:Vector2 = stepVel + externalForcesAccumulated * timeStep
+	var nextStepPos:Vector2 = stepPos + stepVel * timeStep
 	
-	return false
+	# Check for a new collision
+	toGravityCentre = gravityCentreLocalPos - nextStepPos
+	toGravityCentreDistSqr = toGravityCentre.length_squared()
+	
+	var bCollided:bool = false
+	
+	if toGravityCentreDistSqr <= collisionDistanceSqr:
+		#print_debug(stepI)
+		bCollided = true
+		# There was a collision. Find the exact point:
+		collisionPoint = interpolate_intersection_ray_sphere(stepPos, nextStepPos, gravityCentreLocalPos, sqrt(collisionDistanceSqr))
+	
+	stepVel = nextStepVel
+	stepPos = nextStepPos
+	
+	return bCollided
+
+func interpolate_intersection_ray_sphere(p0:Vector2, p1:Vector2, c:Vector2, r:float) -> Vector2:
+	var P0P1Norm:Vector2 = (p1 - p0).normalized()
+	var P0CProj:float = (c - p0).dot(P0P1Norm)
+	
+	var distanceToRaySqr:float = (c - p0).length_squared() - P0CProj*P0CProj
+	var distanceTravelledInsideCollisionSqr:float = r*r-distanceToRaySqr
+	if distanceTravelledInsideCollisionSqr < 0.0:
+		return p0
+	
+	var distanceTravelledToCollision:float = P0CProj - sqrt(distanceTravelledInsideCollisionSqr)
+	#print_debug(distanceTravelledToCollision)
+	return p0 + distanceTravelledToCollision * P0P1Norm
+	
+	
+	
