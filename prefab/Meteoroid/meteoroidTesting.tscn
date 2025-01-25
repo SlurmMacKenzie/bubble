@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3akj0ty3p7tq"]
+[gd_scene load_steps=8 format=3 uid="uid://d3akj0ty3p7tq"]
 
 [ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="1_26jb3"]
 [ext_resource type="Script" path="res://prefab/Meteoroid/MeteoroidLauncher.gd" id="1_xeefw"]
 [ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="2_cvibs"]
 [ext_resource type="PackedScene" uid="uid://buj08ccm4itwc" path="res://prefab/Meteoroid/meteoroidGhost.tscn" id="2_fu25e"]
 [ext_resource type="Script" path="res://prefab/Meteoroid/CentredEarth.gd" id="3_cv5ic"]
+[ext_resource type="Texture2D" uid="uid://ce5hrnwt7rtti" path="res://assets/art/textures/orange_purple.png" id="4_1py33"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0rhxe"]
 
@@ -18,25 +19,34 @@ visible = false
 shape = SubResource("CircleShape2D_0rhxe")
 
 [node name="MeteoroidLauncher" type="Node2D" parent="."]
-position = Vector2(501, 156)
+position = Vector2(122, 152)
 script = ExtResource("1_xeefw")
 ghostScene = ExtResource("2_fu25e")
-drag = 0.002
-gravityStrengthMult = 20000.0
+earthRadius = 65.0
+gravityStrengthMult = 5000.0
 maxSimulationDays = 40
 
 [node name="MeteoroidSprite" type="Sprite2D" parent="MeteoroidLauncher"]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_26jb3")
 
 [node name="LaunchDirection" type="Sprite2D" parent="MeteoroidLauncher"]
 unique_name_in_owner = true
-position = Vector2(76, -26)
-scale = Vector2(0.3, 0.3)
+position = Vector2(22, -25)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_26jb3")
 
 [node name="LaunchSimulationLine" type="Line2D" parent="MeteoroidLauncher"]
 unique_name_in_owner = true
-width = 2.0
+width = 4.0
+default_color = Color(0.996078, 0.996078, 0.996078, 0.541176)
+
+[node name="CollisionSprite" type="Sprite2D" parent="MeteoroidLauncher"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(266, 88)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("4_1py33")
 
 [node name="Earth" type="Sprite2D" parent="."]
 position = Vector2(600, 320)
