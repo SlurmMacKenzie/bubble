@@ -1,13 +1,14 @@
 extends Node
 var ship:Ship
 
+@export var max_speed:float = 10.0
 var angular_velocity:float = 0.0
 var linear_velocity:Vector2 = Vector2.ZERO
-const linear_velocity_deceleration:float = 0.1
+const linear_velocity_deceleration:float = 0.05
 const angular_velocity_deceleration:float = 0.1
 
 const max_angular_velocity = 15.0
-const max_linear_velocity = 1000.0
+const max_linear_velocity = 900.0
 
 func _ready() -> void:
 	ship = owner
@@ -23,12 +24,16 @@ func _physics_process(delta: float) -> void:
 	linear_velocity = linear_velocity.lerp(Vector2.ZERO, linear_velocity_deceleration)
 	ship.set_velocity(linear_velocity)
 	ship.move_and_slide()
+<<<<<<< Updated upstream
 	
 	# did i hit the planet?
 	for i in ship.get_slide_collision_count():
 		var collision = ship.get_slide_collision(i)
 		print("I collided with ", collision.get_collider().name)
 	
+=======
+
+>>>>>>> Stashed changes
 	angular_velocity += movement.x * max_angular_velocity * delta 
 	angular_velocity = lerpf(angular_velocity, 0.0, angular_velocity_deceleration)
 	ship.rotation += angular_velocity * delta

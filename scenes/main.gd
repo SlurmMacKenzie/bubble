@@ -6,5 +6,5 @@ func _process(delta: float) -> void:
 		Debug.do_imgui()
 	
 func _input(event: InputEvent) -> void:
-	if Input.is_action_pressed("debug"):
+	if Input.is_action_just_released("debug"):
 		imgui = !imgui
