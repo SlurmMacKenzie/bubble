@@ -5,6 +5,7 @@ var planet:Planet
 const radius:float = 320.0
 const rotatey_speed_per_frame:float = 1.0
 
+
 func _ready() -> void:
 	shield = owner
 	planet = get_parent().get_parent()
@@ -42,6 +43,5 @@ func _physics_process(delta: float) -> void:
 	shield.rotation = new_angle + PI /2
 	shield.position = new_planet_to_shield
 	
-	
-	
+
 	

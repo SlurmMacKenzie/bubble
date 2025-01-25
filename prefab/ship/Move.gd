@@ -29,6 +29,8 @@ func _physics_process(delta: float) -> void:
 	for i in ship.get_slide_collision_count():
 		var collision = ship.get_slide_collision(i)
 		print("I collided with ", collision.get_collider().name)
+		if collision.get_collider() is Planet:
+			collision.get_collider().take_damage.emit(3)
 	
 	angular_velocity += movement.x * max_angular_velocity * delta 
 	angular_velocity = lerpf(angular_velocity, 0.0, angular_velocity_deceleration)
