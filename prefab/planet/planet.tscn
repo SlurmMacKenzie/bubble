@@ -1,23 +1,16 @@
-
-[gd_scene load_steps=9 format=3 uid="uid://b57us8ouiqsvk"]
+[gd_scene load_steps=8 format=3 uid="uid://b57us8ouiqsvk"]
 
 [ext_resource type="Script" path="res://prefab/planet/planet.gd" id="1_fnuhf"]
 [ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="1_h4k53"]
 [ext_resource type="PackedScene" uid="uid://e52j3heior61" path="res://prefab/planet/shield/shield.tscn" id="2_82cdq"]
-[ext_resource type="Script" path="res://prefab/planet/health_bar.gd" id="4_56576"]
-[ext_resource type="PackedScene" uid="uid://c2jkoaxc73kcu" path="res://prefab/planet/planet_animated.tscn" id="4_0obnf"]
+[ext_resource type="PackedScene" uid="uid://0ifch05nhyn" path="res://prefab/planet/planet_animated.tscn" id="4_0obnf"]
+[ext_resource type="PackedScene" uid="uid://b8u7nijmynmqn" path="res://prefab/planet/atmosphere.tscn" id="5_hd6yd"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_mxhb0"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_3c1nh"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_whnkw"]
-radius = 317.796
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qiq3c"]
-bg_color = Color(0.768627, 0.509804, 0.631373, 0.423529)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7ncj"]
-bg_color = Color(0.0859444, 0.308437, 0.0831972, 1)
+radius = 298.06
 
 [node name="Planet" type="StaticBody2D"]
 script = ExtResource("1_fnuhf")
@@ -32,8 +25,12 @@ render_target_update_mode = 4
 
 [node name="planet" parent="SubViewport" instance=ExtResource("4_0obnf")]
 
+[node name="atmosphere" parent="SubViewport" instance=ExtResource("5_hd6yd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.0873847, 1.8844, -0.0243253)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15.584, 0)
+fov = 8.5
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 8
@@ -41,30 +38,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -502.0
-offset_top = -493.0
-offset_right = 415.0
-offset_bottom = 424.0
+offset_left = -336.0
+offset_top = -336.0
+offset_right = 336.0
+offset_bottom = 336.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("ViewportTexture_mxhb0")
+texture = SubResource("ViewportTexture_3c1nh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-29, -2)
+position = Vector2(-9, 10)
 shape = SubResource("CircleShape2D_whnkw")
 debug_color = Color(0.858824, 0, 0.882353, 0.858824)
 
 [node name="Shield" parent="." instance=ExtResource("2_82cdq")]
-position = Vector2(0, -325)
+position = Vector2(0, -319)
 gravity_scale = 0.0
-
-[node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -205.0
-offset_top = 207.0
-offset_right = 200.0
-offset_bottom = 245.0
-tooltip_text = "Planet Health"
-theme_override_font_sizes/font_size = 29
-theme_override_styles/background = SubResource("StyleBoxFlat_qiq3c")
-theme_override_styles/fill = SubResource("StyleBoxFlat_o7ncj")
-script = ExtResource("4_56576")

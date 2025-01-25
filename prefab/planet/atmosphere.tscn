@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8u7nijmynmqn"]
+
+[ext_resource type="PackedScene" uid="uid://b1oo507ow6dni" path="res://assets/art/atmosphere.blend" id="1_shn04"]
+
+[node name="atmosphere" instance=ExtResource("1_shn04")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/1/rotation = Quaternion(0.707107, -1.37679e-07, 3.09086e-08, 0.707107)
