@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b57us8ouiqsvk"]
+[gd_scene load_steps=12 format=3 uid="uid://b57us8ouiqsvk"]
 
 [ext_resource type="Script" path="res://prefab/planet/planet.gd" id="1_fnuhf"]
 [ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="1_h4k53"]
@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://0ifch05nhyn" path="res://prefab/planet/planet_animated.tscn" id="4_0obnf"]
 [ext_resource type="PackedScene" uid="uid://b8u7nijmynmqn" path="res://prefab/planet/atmosphere.tscn" id="5_hd6yd"]
 [ext_resource type="Script" path="res://prefab/planet/health_bar.gd" id="6_00ptt"]
+[ext_resource type="Texture2D" uid="uid://bb35ty4kftm41" path="res://assets/art/textures/bg.png" id="7_iov5d"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3c1nh"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_whnkw"]
-radius = 298.06
+radius = 296.042
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffqbo"]
 bg_color = Color(0.768627, 0.509804, 0.631373, 0.423529)
@@ -27,6 +28,7 @@ visible = false
 texture = ExtResource("1_h4k53")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 4
 
@@ -72,3 +74,8 @@ theme_override_font_sizes/font_size = 29
 theme_override_styles/background = SubResource("StyleBoxFlat_ffqbo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ww05b")
 script = ExtResource("6_00ptt")
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -100
+scale = Vector2(5.34, 5.34)
+texture = ExtResource("7_iov5d")
