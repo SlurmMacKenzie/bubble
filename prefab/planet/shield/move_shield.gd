@@ -2,7 +2,8 @@ extends Node
 var shield:Shield
 var planet:Planet
 
-const radius:float = 300.0
+const radius:float = 320.0
+var angle:float = 0.0
 
 func _ready() -> void:
 	shield = owner
@@ -12,20 +13,22 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	# rotate about centre of planet... erm.... hackety hacket hack, let's call it a proof of concept
-	if(Input.get_action_strength("right")):
-		shield.position = Vector2(radius, 0) 
-		shield.rotation_degrees = 90.0
-	else: if(Input.get_action_strength("left")):
-		shield.position = Vector2(-radius, 0) 
-		shield.rotation_degrees = 270.0
-	else: if(Input.get_action_strength("thursters")):
-		shield.position = Vector2(0, -radius) 
-		shield.rotation_degrees = 0.0
-	else: if(Input.get_action_strength("down")):
-		shield.position = Vector2(0, radius) 
-		shield.rotation_degrees = 180.0
-	  
+	# rotate about centre of planet... 
+	# what direction is the mouse pointer from the planet?
+	var mouse_pos = get_viewport().get_mouse_position()
+	var planet_pos = planet.global_position
+	
+	var planet_to_mouse = mouse_pos - planet_pos
+	if planet_to_mouse.length() < 0.01:
+		# vector too small, just point up
+		angle = 0.0
+	else:
+		angle = atan2(planet_to_mouse.y, planet_to_mouse.x) 
+		
+	planet_to_mouse = planet_to_mouse.normalized()
+	shield.rotation = angle + PI / 2
+	shield.position = planet_to_mouse * Vector2(radius, radius) 
+	
 	
 	
 	
