@@ -12,7 +12,7 @@
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_whnkw"]
-radius = 296.042
+radius = 464.027
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffqbo"]
 bg_color = Color(0.768627, 0.509804, 0.631373, 0.423529)
@@ -22,6 +22,11 @@ bg_color = Color(0.0859444, 0.308437, 0.0831972, 1)
 
 [node name="Planet" type="StaticBody2D"]
 script = ExtResource("1_fnuhf")
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -100
+scale = Vector2(5.34, 5.34)
+texture = ExtResource("7_iov5d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
@@ -47,21 +52,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -336.0
-offset_top = -336.0
-offset_right = 336.0
-offset_bottom = 336.0
+offset_left = -527.5
+offset_top = -492.5
+offset_right = 527.5
+offset_bottom = 492.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_3c1nh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-9, 10)
+position = Vector2(-12, 18)
 shape = SubResource("CircleShape2D_whnkw")
 debug_color = Color(0.858824, 0, 0.882353, 0.858824)
 
 [node name="Shield" parent="." instance=ExtResource("2_82cdq")]
-position = Vector2(0, -319)
+position = Vector2(0, -454)
 gravity_scale = 0.0
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -74,8 +79,3 @@ theme_override_font_sizes/font_size = 29
 theme_override_styles/background = SubResource("StyleBoxFlat_ffqbo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ww05b")
 script = ExtResource("6_00ptt")
-
-[node name="background" type="Sprite2D" parent="."]
-z_index = -100
-scale = Vector2(5.34, 5.34)
-texture = ExtResource("7_iov5d")

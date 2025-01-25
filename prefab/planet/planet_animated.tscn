@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://0ifch05nhyn"]
+[gd_scene load_steps=15 format=3 uid="uid://0ifch05nhyn"]
 
 [ext_resource type="PackedScene" uid="uid://bohrque8lr3l4" path="res://assets/art/planet.blend" id="1_pchat"]
+[ext_resource type="Script" path="res://prefab/planet/planet_play_animation.gd" id="2_43676"]
 [ext_resource type="Texture2D" uid="uid://sjvaiis78ljl" path="res://assets/art/textures/palettep.png" id="3_po8v3"]
 [ext_resource type="Texture2D" uid="uid://do2otj1otljxn" path="res://assets/art/textures/red_yellow.png" id="3_v3h6w"]
 [ext_resource type="Texture2D" uid="uid://dfboxjkpb1uao" path="res://assets/art/textures/blue_white.png" id="4_mfj5w"]
@@ -33,6 +34,7 @@ shading_mode = 0
 albedo_texture = ExtResource("7_xnv2t")
 
 [node name="planet" instance=ExtResource("1_pchat")]
+script = ExtResource("2_43676")
 
 [node name="Skeleton3D" parent="Armature" index="0"]
 bones/1/rotation = Quaternion(0.684903, 0.173246, -0.175808, 0.685555)

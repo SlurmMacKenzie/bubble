@@ -15,6 +15,7 @@ func _input(event: InputEvent) -> void:
 			var b = load("res://prefab/bubble/bubble.tscn")
 			bubble = b.instantiate()
 			ship.owner.add_child(bubble)
+			$BubbleEmitter_Sound.play()
 			bubble_count -= 1
 
 func _physics_process(delta: float) -> void:

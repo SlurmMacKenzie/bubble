@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://conbxr1qqochx"]
+[gd_scene load_steps=10 format=3 uid="uid://conbxr1qqochx"]
 
 [ext_resource type="Script" path="res://prefab/ship/ship.gd" id="1_2ebyu"]
 [ext_resource type="Texture2D" uid="uid://vfb4vnf0oh2y" path="res://prefab/ship/ship.svg" id="1_avhny"]
+[ext_resource type="AudioStream" uid="uid://bqlmpbsbmkcnv" path="res://assets/audio/Ship_Bubbles/Bubble_Ship.wav" id="3_xoiyc"]
 [ext_resource type="Script" path="res://prefab/ship/Move.gd" id="3_xvufv"]
 [ext_resource type="Script" path="res://prefab/ship/bubble_emitter.gd" id="4_cxndq"]
 [ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="4_fr1y4"]
@@ -21,6 +22,9 @@ script = ExtResource("1_2ebyu")
 unique_name_in_owner = true
 position = Vector2(0, -30)
 script = ExtResource("4_cxndq")
+
+[node name="BubbleEmitter_Sound" type="AudioStreamPlayer2D" parent="BubbleEmitter"]
+stream = ExtResource("3_xoiyc")
 
 [node name="Move" type="Node" parent="."]
 script = ExtResource("3_xvufv")
