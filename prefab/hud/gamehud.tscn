@@ -17,6 +17,7 @@ script = ExtResource("1_y0tva")
 layout_mode = 0
 offset_right = 123.0
 offset_bottom = 45.0
+focus_mode = 0
 text = "Done Probing"
 
 [node name="Label" type="Label" parent="."]
