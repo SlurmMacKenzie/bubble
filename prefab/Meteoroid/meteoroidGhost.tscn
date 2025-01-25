@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://buj08ccm4itwc"]
+
+[ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="1_elj4w"]
+
+[node name="MeteoroidGhost" type="Sprite2D"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_elj4w")
