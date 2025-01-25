@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b57us8ouiqsvk"]
 
-[ext_resource type="Texture2D" uid="uid://rntlhmkx1b6e" path="res://prefab/planet/planet.png" id="1_h4k53"]
+[ext_resource type="Texture2D" uid="uid://cchm2deg0e0o3" path="res://prefab/planet/planet.png" id="1_h4k53"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_whnkw"]
 radius = 317.796
