@@ -27,6 +27,7 @@ func _physics_process(delta: float) -> void:
 	radius += delta * grow_ratio
 	draw_bubble()
 	
+	if radius > max_radius and !poped:
 		pop(true)
 
 func on_fadeout_end():
