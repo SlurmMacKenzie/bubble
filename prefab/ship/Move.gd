@@ -1,13 +1,14 @@
 extends Node
 var ship:Ship
 
+@export var max_speed:float = 10.0
 var angular_velocity:float = 0.0
 var linear_velocity:Vector2 = Vector2.ZERO
-const linear_velocity_deceleration:float = 0.1
+const linear_velocity_deceleration:float = 0.05
 const angular_velocity_deceleration:float = 0.1
 
 const max_angular_velocity = 15.0
-const max_linear_velocity = 1000.0
+const max_linear_velocity = 900.0
 
 func _ready() -> void:
 	ship = owner
