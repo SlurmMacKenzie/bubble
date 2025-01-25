@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://b57us8ouiqsvk"]
+[gd_scene load_steps=4 format=3 uid="uid://b57us8ouiqsvk"]
 
-[ext_resource type="Script" path="res://prefab/planet/planet.gd" id="1_fnuhf"]
 [ext_resource type="Texture2D" uid="uid://cchm2deg0e0o3" path="res://prefab/planet/planet.png" id="1_h4k53"]
 [ext_resource type="PackedScene" uid="uid://e52j3heior61" path="res://prefab/planet/shield/shield.tscn" id="2_82cdq"]
 
@@ -8,7 +7,6 @@
 radius = 317.796
 
 [node name="Planet" type="StaticBody2D"]
-script = ExtResource("1_fnuhf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_h4k53")
@@ -20,3 +18,4 @@ debug_color = Color(0.858824, 0, 0.882353, 0.858824)
 [node name="Shield" parent="." instance=ExtResource("2_82cdq")]
 position = Vector2(-1, -390)
 gravity_scale = 0.0
+script = null
