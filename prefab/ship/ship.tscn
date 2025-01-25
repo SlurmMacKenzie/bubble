@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://conbxr1qqochx"]
+
+[ext_resource type="Script" path="res://prefab/ship/ship.gd" id="1_2ebyu"]
+[ext_resource type="Texture2D" uid="uid://vfb4vnf0oh2y" path="res://prefab/ship/ship.svg" id="1_avhny"]
+[ext_resource type="Script" path="res://prefab/ship/Move.gd" id="3_xvufv"]
+[ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="4_fr1y4"]
+
+[sub_resource type="Curve" id="Curve_um4jg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6x640"]
+radius = 17.0
+height = 64.0
+
+[node name="Ship" type="CharacterBody2D"]
+script = ExtResource("1_2ebyu")
+
+[node name="bubble_trail" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 22)
+emitting = false
+amount = 20
+texture = ExtResource("4_fr1y4")
+emission_shape = 1
+emission_sphere_radius = 10.0
+gravity = Vector2(0, 0)
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_um4jg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_avhny")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_6x640")
+
+[node name="Move" type="Node" parent="."]
+script = ExtResource("3_xvufv")
