@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://b57us8ouiqsvk"]
+
+[ext_resource type="Script" path="res://prefab/planet/planet.gd" id="1_fnuhf"]
+[ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="1_h4k53"]
+[ext_resource type="PackedScene" uid="uid://e52j3heior61" path="res://prefab/planet/shield/shield.tscn" id="2_82cdq"]
+[ext_resource type="Script" path="res://prefab/planet/health_bar.gd" id="4_56576"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_whnkw"]
+radius = 317.796
+
+[node name="Planet" type="StaticBody2D"]
+script = ExtResource("1_fnuhf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_h4k53")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_whnkw")
+debug_color = Color(0.858824, 0, 0.882353, 0.858824)
+
+[node name="Shield" parent="." instance=ExtResource("2_82cdq")]
+position = Vector2(-1, -390)
+gravity_scale = 0.0
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -84.0
+offset_top = 246.0
+offset_right = 101.0
+offset_bottom = 273.0
+script = ExtResource("4_56576")

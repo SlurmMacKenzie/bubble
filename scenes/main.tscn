@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://conbxr1qqochx" path="res://prefab/ship/ship.tscn" id="3_an2gp"]
 [ext_resource type="PackedScene" uid="uid://30wnxmw6s71x" path="res://prefab/hud/pausemenu.tscn" id="4_38enr"]
 [ext_resource type="PackedScene" uid="uid://b5o0bui23t30x" path="res://prefab/hud/gamehud.tscn" id="5_p2ap5"]
-[ext_resource type="AudioStream" uid="uid://x6etfft5w2bh" path="res://assets/audio/SpaceEscape.wav" id="6_w1nip"]
+[ext_resource type="AudioStream" uid="uid://bxuhry5btr1ri" path="res://assets/audio/SpaceEscape_NEW.wav" id="6_h1p2c"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_vw3jo")
@@ -35,7 +35,7 @@ grow_horizontal = 0
 grow_vertical = 1
 
 [node name="MainMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_w1nip")
+stream = ExtResource("6_h1p2c")
 autoplay = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
