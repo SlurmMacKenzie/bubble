@@ -1,9 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://dve7e14trj688"]
+[gd_scene load_steps=21 format=3 uid="uid://dve7e14trj688"]
 
 [ext_resource type="Texture2D" uid="uid://dlfvlm5jwmdkk" path="res://prefab/bubble/bubble.png" id="1_21y8a"]
 [ext_resource type="Script" path="res://prefab/bubble/bubble.gd" id="1_uf4wb"]
 [ext_resource type="Texture2D" uid="uid://dc80a0s8uoqr2" path="res://prefab/bubble/dots.png" id="2_8xjge"]
 [ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="3_afsn4"]
+[ext_resource type="AudioStream" uid="uid://bhbxpu3dla747" path="res://assets/audio/Bubble_Pop.wav" id="5_yv4w3"]
+[ext_resource type="AudioStream" uid="uid://1afe0u36wshv" path="res://assets/audio/Bubble_Pop_1.wav" id="6_lyjml"]
+[ext_resource type="AudioStream" uid="uid://bwr4pjicxxkge" path="res://assets/audio/Bubble_Pop_10.wav" id="7_gkbqt"]
+[ext_resource type="AudioStream" uid="uid://cwy4nbadv5s3m" path="res://assets/audio/Bubble_Pop_2.wav" id="8_l8egh"]
+[ext_resource type="AudioStream" uid="uid://vfm43x358ko7" path="res://assets/audio/Bubble_Pop_3.wav" id="9_0ndl6"]
+[ext_resource type="AudioStream" uid="uid://cxp82wul5ptcd" path="res://assets/audio/Bubble_Pop_4.wav" id="10_3gagv"]
+[ext_resource type="AudioStream" uid="uid://bgi533aj5od2t" path="res://assets/audio/Bubble_Pop_5.wav" id="11_6888r"]
+[ext_resource type="AudioStream" uid="uid://cmahdydeulfxl" path="res://assets/audio/Bubble_Pop_6.wav" id="12_7iijq"]
+[ext_resource type="AudioStream" uid="uid://bl27oi2jcp8bk" path="res://assets/audio/Bubble_Pop_7.wav" id="13_pvkuj"]
+[ext_resource type="AudioStream" uid="uid://daml664cgdbhj" path="res://assets/audio/Bubble_Pop_8.wav" id="14_6sj1s"]
+[ext_resource type="AudioStream" uid="uid://u8ciyd5a5hyf" path="res://assets/audio/Bubble_Pop_9.wav" id="15_f5jte"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_b3bqn"]
 noise_type = 3
@@ -22,6 +33,20 @@ point_count = 5
 [sub_resource type="Curve" id="Curve_usx6j"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_s1a4l"]
+streams_count = 11
+stream_0/stream = ExtResource("5_yv4w3")
+stream_1/stream = ExtResource("6_lyjml")
+stream_2/stream = ExtResource("8_l8egh")
+stream_3/stream = ExtResource("9_0ndl6")
+stream_4/stream = ExtResource("10_3gagv")
+stream_5/stream = ExtResource("11_6888r")
+stream_6/stream = ExtResource("12_7iijq")
+stream_7/stream = ExtResource("13_pvkuj")
+stream_8/stream = ExtResource("14_6sj1s")
+stream_9/stream = ExtResource("15_f5jte")
+stream_10/stream = ExtResource("7_gkbqt")
 
 [node name="Bubble" type="RigidBody2D"]
 collision_layer = 2
@@ -82,3 +107,7 @@ radial_accel_curve = SubResource("Curve_ghn65")
 scale_amount_min = 0.1
 scale_amount_max = 0.6
 scale_amount_curve = SubResource("Curve_usx6j")
+
+[node name="Pop" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+stream = SubResource("AudioStreamRandomizer_s1a4l")
