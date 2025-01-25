@@ -24,6 +24,11 @@ func _physics_process(delta: float) -> void:
 	ship.set_velocity(linear_velocity)
 	ship.move_and_slide()
 	
+	# did i hit the planet?
+	for i in ship.get_slide_collision_count():
+		var collision = ship.get_slide_collision(i)
+		print("I collided with ", collision.get_collider().name)
+	
 	angular_velocity += movement.x * max_angular_velocity * delta 
 	angular_velocity = lerpf(angular_velocity, 0.0, angular_velocity_deceleration)
 	ship.rotation += angular_velocity * delta
