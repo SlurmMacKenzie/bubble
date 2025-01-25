@@ -9,13 +9,12 @@ var spawnedGhostNodes:Array
 @export var dayTimeStep:float = 1.0
 @export var simulationStepsPerDay:float = 10.0 # how many steps to simulate within a day
 @export var orbitPhysicsType:EOrbitPhysicsType = EOrbitPhysicsType.DIST_SQR
-@export var drag:float = 0.99 #node: this is lazily added per step. Changing the # steps per day with this != 1.0 will change the trajectory.
+@export var drag:float = 0.003
 
 # These are guesses for testing
 @export var earthRadius:float = 60.0
 @export var meteoroidRadius:float = 0.0
 var collisionDistanceSqr:float;
-
 
 @export var gravityStrengthMult:float = 100.0
 
