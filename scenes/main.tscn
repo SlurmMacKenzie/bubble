@@ -1,20 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpdjdd43o5hs3"]
+[gd_scene load_steps=7 format=3 uid="uid://dpdjdd43o5hs3"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vw3jo"]
 [ext_resource type="PackedScene" uid="uid://b57us8ouiqsvk" path="res://prefab/planet/planet.tscn" id="3_4t5cn"]
 [ext_resource type="PackedScene" uid="uid://conbxr1qqochx" path="res://prefab/ship/ship.tscn" id="3_an2gp"]
 [ext_resource type="PackedScene" uid="uid://30wnxmw6s71x" path="res://prefab/hud/pausemenu.tscn" id="4_38enr"]
 [ext_resource type="PackedScene" uid="uid://b5o0bui23t30x" path="res://prefab/hud/gamehud.tscn" id="5_p2ap5"]
+[ext_resource type="AudioStream" uid="uid://x6etfft5w2bh" path="res://assets/audio/SpaceEscape.wav" id="6_w1nip"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_vw3jo")
 
-[node name="Ship" parent="." instance=ExtResource("3_an2gp")]
-position = Vector2(443, 337)
-
 [node name="Planet" parent="." instance=ExtResource("3_4t5cn")]
 position = Vector2(600, 300)
 scale = Vector2(0.2, 0.2)
+
+[node name="Ship" parent="." instance=ExtResource("3_an2gp")]
+position = Vector2(443, 337)
+collision_layer = 2
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_38enr")]
 visible = false
@@ -31,5 +33,9 @@ anchor_right = 1.0
 anchor_bottom = 0.0
 grow_horizontal = 0
 grow_vertical = 1
+
+[node name="MainMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_w1nip")
+autoplay = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
