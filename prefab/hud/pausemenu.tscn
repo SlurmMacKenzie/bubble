@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://30wnxmw6s71x"]
+[gd_scene load_steps=3 format=3 uid="uid://30wnxmw6s71x"]
 
 [ext_resource type="Script" path="res://scenes/mainmenu.gd" id="1_lcu6j"]
+[ext_resource type="AudioStream" uid="uid://ciyksc57qinav" path="res://assets/audio/UI Sounds/SpaceESCape_SFX_UIButton_v02.wav" id="2_udaxm"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -47,6 +48,9 @@ text = "Resume"
 layout_mode = 2
 size_flags_vertical = 3
 text = "Quit"
+
+[node name="QuitButton_Sound" type="AudioStreamPlayer" parent="VBoxContainer/Quit"]
+stream = ExtResource("2_udaxm")
 
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
