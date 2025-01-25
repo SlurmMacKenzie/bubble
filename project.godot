@@ -33,10 +33,6 @@ project/assembly_name="Bubble"
 
 enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
 
-[filesystem]
-
-import/blender/enabled=false
-
 [input]
 
 debug={
