@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b57us8ouiqsvk"]
 
 [ext_resource type="Script" path="res://prefab/planet/planet.gd" id="1_fnuhf"]
-[ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="1_h4k53"]
+[ext_resource type="Texture2D" uid="uid://cchm2deg0e0o3" path="res://prefab/planet/planet.png" id="1_h4k53"]
 [ext_resource type="PackedScene" uid="uid://e52j3heior61" path="res://prefab/planet/shield/shield.tscn" id="2_82cdq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_whnkw"]
