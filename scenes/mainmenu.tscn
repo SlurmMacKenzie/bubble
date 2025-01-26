@@ -59,6 +59,7 @@ offset_top = -597.0
 offset_right = 624.0
 offset_bottom = 388.0
 grow_vertical = 0
+mouse_filter = 2
 texture = SubResource("ViewportTexture_wfsah")
 stretch_mode = 3
 
