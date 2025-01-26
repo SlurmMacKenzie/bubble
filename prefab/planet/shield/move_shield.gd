@@ -53,23 +53,18 @@ func _physics_process(delta: float) -> void:
 	shield.position = new_planet_to_shield
 	
 	# figure out the extents of the shield - for the asteroid collision code
-	var coll:CollisionShape2D = get_parent().get_node("CollisionShape2D")
-	var collision_size:Vector2 = coll.get_shape().size
-	var min_extent_shield_position:Vector2 = coll.to_global(-collision_size/2.0)
-	var max_extent_shield_position:Vector2 = coll.to_global(collision_size/2.0)
+	var min_extent:Node2D = get_parent().get_node("min_extent")
+	var max_extent:Node2D = get_parent().get_node("max_extent")
+	var min_extent_shield_position:Vector2 = min_extent.global_position
+	var max_extent_shield_position:Vector2 = max_extent.global_position
 
 	var min_angle:float = position_to_angle_around_planet(min_extent_shield_position, planet_pos)
 	var max_angle:float = position_to_angle_around_planet(max_extent_shield_position, planet_pos)
-	var test_current_angle:float = position_to_angle_around_planet(coll.to_global(Vector2(0,0)), planet_pos)
 	var new_shield_angle_extent:float = abs(max_angle-min_angle)
-	if new_shield_angle_extent > 2 * PI:
-		new_shield_angle_extent -= 2 * PI # lol at the wrapping round hackety fix
-	print_debug(new_shield_angle_extent)
-	if abs(GameState.shield_angle_extent - new_shield_angle_extent) > 0.01:
-		print_debug(GameState.shield_angle_extent)
-		print_debug(new_shield_angle_extent)
+	if new_shield_angle_extent > PI:
+		new_shield_angle_extent = 2 * PI - new_shield_angle_extent # lol at the wrapping round hackety fix
 	
-	GameState.shield_angle_extent = new_shield_angle_extent
+	GameState.shield_angle_extent = new_shield_angle_extent / 2
 	GameState.shield_position = shield.global_position
 
 	

@@ -22,3 +22,9 @@ default_color = Color(1, 0.345098, 0.564706, 1)
 
 [node name="move_shield" type="Node" parent="."]
 script = ExtResource("1_aefbi")
+
+[node name="min_extent" type="Node2D" parent="."]
+position = Vector2(-28, 8)
+
+[node name="max_extent" type="Node2D" parent="."]
+position = Vector2(28, -10)
