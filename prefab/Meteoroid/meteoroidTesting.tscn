@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3akj0ty3p7tq"]
+
+[ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="2_cvibs"]
+[ext_resource type="Script" path="res://prefab/Meteoroid/CentredEarth.gd" id="3_cv5ic"]
+[ext_resource type="PackedScene" uid="uid://ciss42im0l4vs" path="res://prefab/Meteoroid/meteoroidLauncher.tscn" id="3_qdeud"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0rhxe"]
+
+[node name="MeteoroidTesting" type="Node2D"]
+
+[node name="Meteoroid" type="RigidBody2D" parent="."]
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Meteoroid"]
+visible = false
+shape = SubResource("CircleShape2D_0rhxe")
+
+[node name="Earth" type="Sprite2D" parent="."]
+position = Vector2(600, 320)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_cvibs")
+script = ExtResource("3_cv5ic")
+
+[node name="MeteoroidLauncher" parent="." instance=ExtResource("3_qdeud")]
+position = Vector2(302, 177)
