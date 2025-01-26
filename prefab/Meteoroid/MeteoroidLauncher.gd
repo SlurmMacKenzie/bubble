@@ -7,15 +7,18 @@ var spawnedMeteoroidNodes:Array
 @export var bResimulateLaunch:bool = false
 @export var launchVelocity:Vector2 = Vector2.ZERO
 
+@export var randomisedChanceToSpawnEachDay = 0.1
 @export var randomisedSpeedBounds:Vector2 = Vector2(20.0, 80.0)
 @export var randomisedAngleBounds:Vector2 = Vector2(30.0, 120.0) # Angle offset from pointing at planet
 @export var randomisedLaunchPositionDistanceFromEarthDeadzone = 330.0
 @export var randomisedLaunchPositionDistanceFromEdgeDeadzone = 50.0
 var rng:RandomNumberGenerator = RandomNumberGenerator.new()
 
+var numMeteoroids:int = 0
+
 func _ready() -> void:
 	GameState.game_started.connect(_onGameStateChanged)
-	#GameState.game_state_changed.connect(_onGameStateChanged)
+	GameState.day_incremented.connect(_onDayIncremented)
 	GameState.meteoroid_destroyed.connect(_onMeteoroidDestroyed)
 	pass
 
@@ -63,6 +66,8 @@ func getRandPositionOnScreen() -> Vector2:
 				get_viewport_rect().size.y - randomisedLaunchPositionDistanceFromEdgeDeadzone))
 
 func simulateLaunch() -> void:
+	numMeteoroids = numMeteoroids + 1
+	print_debug("Launched meteoroid: ", numMeteoroids)
 	var newMeteoroid:Node2D = meteoroidScene.instantiate()
 	get_parent().add_child.call_deferred(newMeteoroid)
 	newMeteoroid.position = position
@@ -95,3 +100,8 @@ func _onGameStateChanged():
 func _onMeteoroidDestroyed():
 	randomiseLaunchParams()
 	simulateLaunch()
+
+func _onDayIncremented():
+	if rng.randf() < randomisedChanceToSpawnEachDay:
+		randomiseLaunchParams()
+		simulateLaunch()

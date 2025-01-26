@@ -12,6 +12,12 @@ func _ready() -> void:
 	shield.position = Vector2(0, -radius) 
 	shield.rotation_degrees = 0.0
 
+func position_to_angle_around_planet(position: Vector2, planet_centre: Vector2) -> float:
+	var planet_to_position = position - planet_centre
+	if planet_to_position.length() > 0.01:
+		return atan2(planet_to_position.y, planet_to_position.x) 
+	return 0.0	
+	
 func _physics_process(delta: float) -> void:
 	# if we're moving the ship then we shouldn't be moving the shield
 	if GameState.current_state != GameState.GAME_STATE.ASTEROID:
@@ -46,6 +52,19 @@ func _physics_process(delta: float) -> void:
 	shield.rotation = new_angle + PI /2
 	shield.position = new_planet_to_shield
 	
+	# figure out the extents of the shield - for the asteroid collision code
+	var min_extent:Node2D = get_parent().get_node("min_extent")
+	var max_extent:Node2D = get_parent().get_node("max_extent")
+	var min_extent_shield_position:Vector2 = min_extent.global_position
+	var max_extent_shield_position:Vector2 = max_extent.global_position
+
+	var min_angle:float = position_to_angle_around_planet(min_extent_shield_position, planet_pos)
+	var max_angle:float = position_to_angle_around_planet(max_extent_shield_position, planet_pos)
+	var new_shield_angle_extent:float = abs(max_angle-min_angle)
+	if new_shield_angle_extent > PI:
+		new_shield_angle_extent = 2 * PI - new_shield_angle_extent # lol at the wrapping round hackety fix
+	
+	GameState.shield_angle_extent = new_shield_angle_extent / 2
 	GameState.shield_position = shield.global_position
 
 	
