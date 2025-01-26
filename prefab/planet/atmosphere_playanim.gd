@@ -5,7 +5,6 @@ func _ready() -> void:
 	$AnimationPlayer.current_animation = "ArmatureAction_001"
 	$AnimationPlayer.play()
 	
-	var parent = get_parent()
 	var planet = get_parent().get_parent()
 	if planet is Planet:
 		var the_planet:Planet = planet
