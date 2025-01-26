@@ -2,9 +2,11 @@ extends Control
 @onready var timerLabel = $HBoxContainer/TimerLabel
 @onready var timer = $Timer
 @onready var dayLabel = $"HBoxContainer/Day Label"
+@onready var resourceLabel = $HBoxContainer/HBoxContainer/resourcelabel
+
 func _process(delta: float) -> void:
 	timerLabel.text = str($Timer.time_left as int)
-
+	resourceLabel.text = str(Bubblemanager.bubble_count)
 func _on_button_pressed() -> void:
 	timerLabel.show()
 	GameState.current_state = GameState.GAME_STATE.ASTEROID

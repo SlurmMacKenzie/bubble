@@ -85,5 +85,5 @@ script = ExtResource("6_00ptt")
 
 [node name="time_passing_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_7q1mf")
-volume_db = 24.0
+volume_db = 6.0
 script = ExtResource("10_3jjej")

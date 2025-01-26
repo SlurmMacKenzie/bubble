@@ -21,8 +21,8 @@ script = ExtResource("1_hf52s")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 1147.0
-offset_bottom = 645.0
+offset_right = 1153.0
+offset_bottom = 646.0
 texture = ExtResource("2_7u4g1")
 expand_mode = 1
 stretch_mode = 5

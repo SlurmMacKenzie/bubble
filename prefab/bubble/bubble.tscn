@@ -84,8 +84,8 @@ material = SubResource("ShaderMaterial_mxmd4")
 
 [node name="BubbleVisual" type="Polygon2D" parent="."]
 unique_name_in_owner = true
-modulate = Color(0.854902, 0.94902, 0.984314, 0.435294)
-color = Color(0.164706, 0.431373, 0.533333, 1)
+modulate = Color(0.854902, 0.94902, 0.984314, 1)
+color = Color(0.164706, 0.431373, 0.533333, 0.458824)
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true

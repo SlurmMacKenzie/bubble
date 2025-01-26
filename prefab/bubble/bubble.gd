@@ -93,18 +93,29 @@ func pop(show_dots: bool):
 	poped = true
 	%CPUParticles2D.emission_sphere_radius = radius
 	%CPUParticles2D.emitting = true
-	%BubbleVisual.visible = false
-	%BubbleShader.visible = false
-	%Line2D.visible = false
+	
 	%Dots.visible = show_dots
 	%Pop.play()
 	Bubblemanager.emit_signal("bubble_pop", self, show_dots)
 	if !show_dots:
+		%BubbleShader.visible = false
+		%Line2D.visible = false
 		$DeleteTimer.start()
-	#tween_fadeout = create_tween()
-	#tween_fadeout.tween_property(self, "modulate:a", 0.0, 0.03).connect("finished", on_fadeout_end)
+		tween_fadeout = create_tween()
+		tween_fadeout.set_ease(Tween.EASE_IN_OUT)
+		tween_fadeout.set_trans(Tween.TRANS_LINEAR)
+		tween_fadeout.tween_method(fade_out,1.0,0.0,0.9)
+	else:
+		%BubbleVisual.visible = false
+		%BubbleShader.visible = false
+		%Line2D.visible = false
+		
 
-
+func fade_out(v:float):
+	%BubbleShader.modulate.a = v
+	%BubbleVisual.modulate.a = v
+	%Line2D.modulate.a = v
+	
 func _on_body_entered(body: Node2D) -> void:
 	if body is Ship:
 		ship = body
