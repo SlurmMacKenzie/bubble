@@ -56,8 +56,7 @@ func is_final_day_before_impact():
 	
 	return (currentPositionIdx == len(calculatedDayPositions)-1)
 	
-	
-const shield_angle_range:float = 0.4
+
 
 func am_hitting_shield():
 	var planet_to_shield_impact:Vector2 = to_global(calculatedImpactPointShield) - gravityCentrePos
@@ -68,7 +67,7 @@ func am_hitting_shield():
 	if angle_diff > PI:
 		# gone the long way round - go the other way!
 		angle_diff = 2 * PI - angle_diff
-	if angle_diff < shield_angle_range:
+	if angle_diff < GameState.shield_angle_extent:
 		return true
 	return false	
 
