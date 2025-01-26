@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5o0bui23t30x"]
+[gd_scene load_steps=5 format=3 uid="uid://b5o0bui23t30x"]
 
 [ext_resource type="Script" path="res://prefab/hud/gamehud.gd" id="1_y0tva"]
 [ext_resource type="FontFile" uid="uid://c8xkf4haihbf1" path="res://assets/Space_Mono/SpaceMono-Regular.ttf" id="2_aoai5"]
 [ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="3_inh6f"]
+[ext_resource type="FontFile" uid="uid://bbsobcv6b2fd" path="res://assets/Space_Mono/SpaceMono-Bold.ttf" id="4_i4l85"]
 
 [node name="Gamehud" type="Control"]
 layout_mode = 3
@@ -72,5 +73,21 @@ offset_right = 350.0
 offset_bottom = 119.0
 text = "Meteroids approaching: 0"
 
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 513.0
+offset_top = 133.0
+offset_right = 684.0
+offset_bottom = 186.0
+theme_override_colors/font_color = Color(0.388235, 0.662745, 0.45098, 1)
+theme_override_fonts/font = ExtResource("4_i4l85")
+theme_override_font_sizes/font_size = 35
+text = "SHIELDED"
+
+[node name="ShieldedTimer" type="Timer" parent="Label"]
+wait_time = 2.0
+
 [connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Label/ShieldedTimer" to="." method="_on_shieldedtimer_timeout"]

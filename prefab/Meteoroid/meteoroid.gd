@@ -110,7 +110,7 @@ func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_KP_2):
 		orbitDebugViewType = EOrbitDebugViewType.SHOW_CURRENT_AND_ARC
 		bUpdatedView = true
-	if Input.is_key_pressed(KEY_KP_1):
+	if Input.is_key_pressed(KEY_H):
 		orbitDebugViewType = EOrbitDebugViewType.SHOW_CURRENT
 		bUpdatedView = true
 	if Input.is_key_pressed(KEY_KP_0):
