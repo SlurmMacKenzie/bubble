@@ -15,6 +15,7 @@ var ship_in_bubble = false
 var ship:Ship = null
 var ship_angle = 0.0
 var ship_entrance_amplitude = 0.0
+var ship_entered = false
 
 const grow_ratio:float = 20.0
 const sample_size:int = 64
@@ -22,11 +23,18 @@ const wobble_speed:float = 0.2
 const wobble_weight:float = 0.3
 
 func _physics_process(delta: float) -> void:
-	radius += delta * grow_ratio
+	if !poped:
+		radius += delta * grow_ratio
 	draw_bubble()
 	
 	if radius > max_radius and !poped:
 		pop(true)
+		
+	if ship_entered:
+		if ship.position.distance_to(position) > radius * 0.8:
+			var v:Vector2 = position.direction_to(ship.position)
+			ship_angle = v.angle()
+			ship_entrance_amplitude = 10
 
 func on_fadeout_end():
 	pass
@@ -45,6 +53,7 @@ func draw_bubble():
 		pos_list.append(radian_pos)
 	
 	%BubbleVisual.polygon = pos_list
+	%BubbleShader.polygon = pos_list
 	%CollisionShape2D.shape.radius = radius
 	pos_list.append(pos_list[0])
 	%Line2D.points = pos_list
@@ -76,10 +85,13 @@ func pop(show_dots: bool):
 	%CPUParticles2D.emission_sphere_radius = radius
 	%CPUParticles2D.emitting = true
 	%BubbleVisual.visible = false
+	%BubbleShader.visible = false
 	%Line2D.visible = false
 	%Dots.visible = show_dots
-	%CollisionShape2D.set_deferred("disabled", true)
 	%Pop.play()
+	Bubblemanager.emit_signal("bubble_pop", self, show_dots)
+	if !show_dots:
+		$DeleteTimer.start()
 	#tween_fadeout = create_tween()
 	#tween_fadeout.tween_property(self, "modulate:a", 0.0, 0.03).connect("finished", on_fadeout_end)
 
@@ -87,6 +99,7 @@ func pop(show_dots: bool):
 func _on_body_entered(body: Node2D) -> void:
 	if body is Ship:
 		ship = body
+		ship_entered = true
 		var v:Vector2 = position.direction_to(ship.position)
 		ship_angle = v.angle()
 		ship_entrance_amplitude = 10
@@ -97,7 +110,16 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if body is Ship:
 		ship = body
+		ship_entered = false
 		var v:Vector2 = position.direction_to(ship.position)
 		ship_angle = v.angle()
 		ship_entrance_amplitude = 10
 		print("ship_exit")
+
+
+func _on_delete_timer_timeout() -> void:
+	self.get_parent().remove_child(self)
+	self.queue_free()
+
+func increase_time():
+	%Dots.increase_time()

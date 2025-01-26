@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://b57us8ouiqsvk"]
+[gd_scene load_steps=12 format=3 uid="uid://b57us8ouiqsvk"]
 
 [ext_resource type="Script" path="res://prefab/planet/planet.gd" id="1_fnuhf"]
 [ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="1_h4k53"]
 [ext_resource type="PackedScene" uid="uid://e52j3heior61" path="res://prefab/planet/shield/shield.tscn" id="2_82cdq"]
 [ext_resource type="PackedScene" uid="uid://0ifch05nhyn" path="res://prefab/planet/planet_animated.tscn" id="4_0obnf"]
 [ext_resource type="PackedScene" uid="uid://b8u7nijmynmqn" path="res://prefab/planet/atmosphere.tscn" id="5_hd6yd"]
+[ext_resource type="PackedScene" uid="uid://cnh38wfpyp3or" path="res://prefab/planet/hourhand.tscn" id="5_vva50"]
 [ext_resource type="Script" path="res://prefab/planet/health_bar.gd" id="6_00ptt"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3c1nh"]
@@ -35,6 +36,9 @@ render_target_update_mode = 4
 
 [node name="atmosphere" parent="SubViewport" instance=ExtResource("5_hd6yd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="hourhand" parent="SubViewport" instance=ExtResource("5_vva50")]
+transform = Transform3D(0.655361, 0, 0, 0, 1, 0, 0, 0, 0.684765, 0, 0.638971, 0)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15.584, 0)

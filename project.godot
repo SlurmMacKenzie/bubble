@@ -13,17 +13,23 @@ config_version=5
 config/name="Bubble"
 run/main_scene="res://scenes/mainmenu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://assets/art/ship_sprite/ship_001.png"
 
 [autoload]
 
 Debug="*res://scripts/debug.gd"
 ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
 GameState="*res://scripts/gamestate.gd"
+Bubblemanager="*res://scripts/bubblemanager.gd"
+MeteoroidLauncher="*res://prefab/Meteoroid/MeteoroidLauncher.gd"
 
 [debug]
 
 gdscript/warnings/unused_parameter=0
+
+[display]
+
+window/stretch/mode="viewport"
 
 [dotnet]
 
@@ -32,6 +38,10 @@ project/assembly_name="Bubble"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
@@ -77,5 +87,10 @@ pause={
 debug_changestate={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"location":0,"echo":false,"script":null)
+]
+}
+fullscreen={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":70,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }

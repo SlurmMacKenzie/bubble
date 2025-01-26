@@ -17,6 +17,8 @@ func _input(event: InputEvent) -> void:
 			ship.owner.add_child(bubble)
 			$BubbleEmitter_Sound.play()
 			bubble_count -= 1
+			ship.update_sprite(bubble_count, true)
+			%bubble_emitted.emitting = true
 
 func _physics_process(delta: float) -> void:
 	if bubble and !bubble.detached:
@@ -28,3 +30,4 @@ func _physics_process(delta: float) -> void:
 func on_game_state_changed():
 	if GameState.current_state == GameState.GAME_STATE.ASTEROID:
 		bubble_count = 3
+		ship.update_sprite(bubble_count)

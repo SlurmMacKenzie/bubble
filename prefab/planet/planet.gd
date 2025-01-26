@@ -9,6 +9,8 @@ const health_max:int = 100
 var health:int = health_max
 
 func _ready() -> void:
+	position = get_viewport_rect().size / 2
+	
 	take_damage.connect(_take_damage)
 	var health_bar = get_node("HealthBar")
 	health_bar.update_health_bar.emit(health)
