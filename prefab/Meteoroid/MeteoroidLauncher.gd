@@ -2,7 +2,11 @@ extends Node2D
 
 enum EOrbitPhysicsType {DIST_SQR,DIST,CONST} 
 
-@export var ghostScene:PackedScene
+@export var launchDirectionNode:Node2D
+@export var launchSimulationLineNode:Node2D
+@export var impactSpriteNode:Node2D
+
+var ghostScene: PackedScene = load("res://prefab/Meteoroid/meteoroidGhost.tscn")
 var spawnedGhostNodes:Array
 
 @export var bSimulate:bool = true
@@ -22,14 +26,19 @@ var collisionDistanceSqr:float;
 var gravityCentrePos:Vector2
 var gravityCentreLocalPos:Vector2
 
+# Results of calculations we need to run the game. In debugging, we can recalculate every frame
+var calculatedDayPositions:PackedVector2Array
+var calculatedLineVertices:PackedVector2Array
+var calculatedImpactPoint:Vector2
+var bCalculatedImpact:bool
+
 # Simulation sanity limits
 @export var maxSimulationDays:int = 10
 # should also do a max distance from the screen centre, etc.
 
 # Don't think I can pass by ref. Extending scope for step variables here for access across class:
-var stepPos:Vector2;
-var stepVel:Vector2;
-var collisionPoint:Vector2;
+var stepPos:Vector2
+var stepVel:Vector2
 
 # The data that I want to be available to the rest of the game:
 # ghost positions
@@ -37,8 +46,8 @@ var collisionPoint:Vector2;
 # line points
 
 func _ready() -> void:
-	stepPos = global_position;
-	stepVel = Vector2.ZERO;
+	stepPos = global_position
+	stepVel = Vector2.ZERO
 	if earthNode:
 		gravityCentrePos = earthNode.position
 	else:
@@ -54,46 +63,59 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if bSimulate:
+		update_simulation()
 		update_simulation_visual()
 
-func update_simulation_visual() -> void:
+func update_simulation() -> void:
 	# here so that we can easily move things in debug mode
 	gravityCentreLocalPos = to_local(gravityCentrePos)
 	collisionDistanceSqr = (earthRadius + meteoroidRadius)*(earthRadius + meteoroidRadius);
+	
+	# Reset simulation
+	calculatedDayPositions.clear()
+	calculatedLineVertices.clear()
+	bCalculatedImpact = false
 
-	var launchDirection:Vector2 = %LaunchDirection.position
+	var launchDirection:Vector2 = launchDirectionNode.position
+	#var launchDirection:Vector2 = $MeteoroidLauncher.get_node("%LaunchDirection").position
 	stepPos = launchDirection
 	stepVel = launchDirection / dayTimeStep
 
-	var pos_list:PackedVector2Array = PackedVector2Array() # can set size here?
 	var simulationTimeStep:float = dayTimeStep / simulationStepsPerDay;
 	
 	var stepI:int = 0
-
-	pos_list.append(Vector2.ZERO)
-	pos_list.append(stepPos)
+	calculatedLineVertices.append(Vector2.ZERO)
+	calculatedLineVertices.append(stepPos)
 	# update this to a while loop with exit conditions
-	var bCollided:bool = false
 	for ghost in spawnedGhostNodes:
 		var bCollidedThisDay:bool = false
 		for step in range(simulationStepsPerDay):
-			if !bCollided:
+			if !bCalculatedImpact:
 				bCollidedThisDay = step_simulation(simulationTimeStep, stepI)
 				if bCollidedThisDay:
-					bCollided = true
-					pos_list.append(collisionPoint)
+					bCalculatedImpact = true
+					calculatedLineVertices.append(calculatedImpactPoint)
 				else:
-					pos_list.append(stepPos)
+					calculatedLineVertices.append(stepPos)
 			stepI +=1
-		
-		if bCollidedThisDay:
-			%CollisionSprite.position = collisionPoint
-
-		ghost.position = stepPos
-		ghost.visible = !bCollided
+		if !bCalculatedImpact:
+			calculatedDayPositions.append(stepPos)
 	
-	%CollisionSprite.visible = bCollided
-	%LaunchSimulationLine.points = pos_list
+func update_simulation_visual() -> void:
+	# Draw path projection
+	launchSimulationLineNode.points = calculatedLineVertices
+	
+	# Draw positions for each day
+	for iGhost in len(spawnedGhostNodes):
+		if iGhost < len(calculatedDayPositions):
+			spawnedGhostNodes[iGhost].position = calculatedDayPositions[iGhost]
+			spawnedGhostNodes[iGhost].visible = true
+		else:
+			spawnedGhostNodes[iGhost].visible = false
+
+	impactSpriteNode.visible = bCalculatedImpact
+	if bCalculatedImpact:
+		impactSpriteNode.position = calculatedImpactPoint
 
 # Returns true if impact
 func step_simulation(timeStep: float, stepI: int) -> bool:
@@ -137,7 +159,7 @@ func step_simulation(timeStep: float, stepI: int) -> bool:
 		#print_debug(stepI)
 		bCollided = true
 		# There was a collision. Find the exact point:
-		collisionPoint = interpolate_intersection_ray_sphere(stepPos, nextStepPos, gravityCentreLocalPos, sqrt(collisionDistanceSqr))
+		calculatedImpactPoint = interpolate_intersection_ray_sphere(stepPos, nextStepPos, gravityCentreLocalPos, sqrt(collisionDistanceSqr))
 	
 	stepVel = nextStepVel
 	stepPos = nextStepPos
