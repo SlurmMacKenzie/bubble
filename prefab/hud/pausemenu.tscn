@@ -41,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="Resume" type="Button" parent="VBoxContainer"]
+[node name="Play" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(1, 0.835294, 0.407843, 1)
@@ -51,7 +51,7 @@ theme_override_fonts/font = ExtResource("2_as82n")
 theme_override_font_sizes/font_size = 30
 text = "Resume"
 
-[node name="PlayButton_Sound" type="AudioStreamPlayer" parent="VBoxContainer/Resume"]
+[node name="PlayButton_Sound" type="AudioStreamPlayer" parent="VBoxContainer/Play"]
 stream = ExtResource("2_7imt3")
 volume_db = -12.0
 
@@ -69,5 +69,5 @@ text = "Quit"
 stream = ExtResource("2_udaxm")
 volume_db = -12.0
 
-[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

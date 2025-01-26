@@ -14,10 +14,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y0tva")
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_right = 123.0
-offset_bottom = 45.0
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 339.0
+offset_bottom = 53.0
+
+[node name="Day Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_aoai5")
+theme_override_font_sizes/font_size = 35
+text = "DAY 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
 focus_mode = 0
 theme_override_colors/font_hover_color = Color(1, 0.835294, 0.407843, 1)
 theme_override_colors/font_pressed_color = Color(0.388235, 0.662745, 0.45098, 1)
@@ -26,13 +37,12 @@ theme_override_fonts/font = ExtResource("2_aoai5")
 theme_override_font_sizes/font_size = 30
 text = "Done Probing"
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 256.0
-offset_right = 332.0
-offset_bottom = 53.0
+[node name="TimerLabel" type="Label" parent="HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.388235, 0.662745, 0.45098, 1)
 theme_override_fonts/font = ExtResource("2_aoai5")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 40
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -41,5 +51,5 @@ vertical_alignment = 1
 wait_time = 6.0
 one_shot = true
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

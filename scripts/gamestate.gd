@@ -3,7 +3,11 @@ extends Node
 enum GAME_STATE {SHIP = 0, ASTEROID = 1}
 
 var current_state = GAME_STATE.SHIP
+var day_count = 0
+
 signal game_state_changed
+signal day_incremented
+
 
 func _changeState():
 	if(current_state == GAME_STATE.SHIP):
@@ -13,3 +17,7 @@ func _changeState():
 
 func _setState(value: GAME_STATE):
 	current_state = value
+
+func _incrementDay():
+	day_count += 1
+	day_incremented.emit()
