@@ -7,6 +7,9 @@ var bubbles = []
 var markers = []
 var collisions = {}
 
+const bubble_limit:int = 9
+var bubble_count:int = bubble_limit
+
 var day:int = 1
 
 func _ready() -> void:
