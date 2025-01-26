@@ -88,6 +88,18 @@ text = "SHIELDED"
 [node name="ShieldedTimer" type="Timer" parent="Label"]
 wait_time = 2.0
 
+[node name="LoseLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 404.0
+offset_top = 129.0
+offset_right = 768.0
+offset_bottom = 182.0
+theme_override_colors/font_color = Color(1, 0.364301, 0.32925, 1)
+theme_override_fonts/font = ExtResource("4_i4l85")
+theme_override_font_sizes/font_size = 35
+text = "wE aRe aLL dOomED"
+
 [connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Label/ShieldedTimer" to="." method="_on_shieldedtimer_timeout"]
