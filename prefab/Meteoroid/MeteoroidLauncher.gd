@@ -40,10 +40,10 @@ func randomiseLaunchParams() -> void:
 
 func simulateLaunch() -> void:
 	var newMeteoroid:Node2D = meteoroidScene.instantiate()
-	get_parent().add_child(newMeteoroid)
+	get_parent().add_child.call_deferred(newMeteoroid)
 	newMeteoroid.position = position
 	spawnedMeteoroidNodes.append(newMeteoroid)
-	newMeteoroid.launch(launchVelocity)
+	newMeteoroid.launch.call_deferred(launchVelocity)
 
 func clearMeteoroids() -> void:
 	for meteoroid in spawnedMeteoroidNodes:

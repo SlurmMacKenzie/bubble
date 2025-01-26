@@ -47,7 +47,9 @@ stream = ExtResource("6_h1p2c")
 volume_db = -6.0
 autoplay = true
 
-[node name="MeteoroidLauncher" parent="." instance=ExtResource("7_c8xn2")]
+[node name="Meteoroids" type="Node" parent="."]
+
+[node name="MeteoroidLauncher" parent="Meteoroids" instance=ExtResource("7_c8xn2")]
 position = Vector2(51, 83)
 launchVelocity = Vector2(30, 20)
 

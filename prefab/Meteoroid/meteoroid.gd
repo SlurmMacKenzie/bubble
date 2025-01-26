@@ -22,7 +22,7 @@ var collisionDistanceSqr:float;
 
 @export var gravityStrengthMult:float = 100.0
 
-@export var earthNode:Node2D
+var earthNode:Node2D
 var gravityCentrePos:Vector2
 var gravityCentreLocalPos:Vector2
 
@@ -60,6 +60,9 @@ func init() -> void:
 	
 	stepPos = position
 	stepVel = Vector2.ZERO
+	print_tree()
+	print_debug(get_parent())
+
 	if earthNode:
 		gravityCentrePos = earthNode.position
 	else:
