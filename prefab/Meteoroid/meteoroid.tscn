@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dieya242r8oga"]
+
+[ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="1_0itsw"]
+[ext_resource type="Script" path="res://prefab/Meteoroid/meteoroid.gd" id="1_cxspw"]
+[ext_resource type="Texture2D" uid="uid://ce5hrnwt7rtti" path="res://assets/art/textures/orange_purple.png" id="2_xv4i0"]
+
+[node name="Meteoroid" type="Node2D" node_paths=PackedStringArray("launchSimulationLineNode", "impactSpriteNode")]
+script = ExtResource("1_cxspw")
+launchSimulationLineNode = NodePath("LaunchSimulationLine")
+impactSpriteNode = NodePath("CollisionSprite")
+
+[node name="MeteoroidSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_0itsw")
+
+[node name="LaunchSimulationLine" type="Line2D" parent="."]
+unique_name_in_owner = true
+width = 4.0
+default_color = Color(0.996078, 0.996078, 0.996078, 0.541176)
+
+[node name="CollisionSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+position = Vector2(266, 88)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("2_xv4i0")

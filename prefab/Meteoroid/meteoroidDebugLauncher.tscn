@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://i5s7kyjr8m4f"]
+
+[ext_resource type="Script" path="res://prefab/Meteoroid/meteoroidDebugLauncher.gd" id="1_h4nbm"]
+[ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="2_upuun"]
+[ext_resource type="PackedScene" uid="uid://dieya242r8oga" path="res://prefab/Meteoroid/meteoroid.tscn" id="3_sip2j"]
+
+[node name="MeteoroidDebugLauncher" type="Node2D" node_paths=PackedStringArray("launchDirectionNode", "meteoroid")]
+position = Vector2(687, 171)
+script = ExtResource("1_h4nbm")
+launchDirectionNode = NodePath("LaunchDirection")
+meteoroid = NodePath("Meteoroid")
+bResimulateLaunch = true
+
+[node name="LaunchDirection" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(211, 10)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_upuun")
+
+[node name="Meteoroid" parent="." instance=ExtResource("3_sip2j")]
+unique_name_in_owner = true
+gravityStrengthMult = 10000.0
+maxSimulationDays = 20

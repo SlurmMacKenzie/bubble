@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpdjdd43o5hs3"]
+[gd_scene load_steps=8 format=3 uid="uid://dpdjdd43o5hs3"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vw3jo"]
 [ext_resource type="PackedScene" uid="uid://b57us8ouiqsvk" path="res://prefab/planet/planet.tscn" id="3_4t5cn"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://30wnxmw6s71x" path="res://prefab/hud/pausemenu.tscn" id="4_38enr"]
 [ext_resource type="PackedScene" uid="uid://b5o0bui23t30x" path="res://prefab/hud/gamehud.tscn" id="5_p2ap5"]
 [ext_resource type="AudioStream" uid="uid://bxuhry5btr1ri" path="res://assets/audio/SpaceEscape_NEW.wav" id="6_h1p2c"]
+[ext_resource type="PackedScene" uid="uid://ciss42im0l4vs" path="res://prefab/Meteoroid/meteoroidLauncher.tscn" id="7_c8xn2"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_vw3jo")
@@ -38,5 +39,9 @@ grow_vertical = 1
 stream = ExtResource("6_h1p2c")
 volume_db = -6.0
 autoplay = true
+
+[node name="MeteoroidLauncher" parent="." instance=ExtResource("7_c8xn2")]
+position = Vector2(879, 140)
+launchVelocity = Vector2(30, 20)
 
 [connection signal="ready" from="." to="." method="_on_ready"]
