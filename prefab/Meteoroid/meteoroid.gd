@@ -47,6 +47,8 @@ var bInit:bool = false
 # Runtime gameplay
 var currentPositionIdx:int = 0
 @export var orbitDebugViewType:EOrbitDebugViewType = EOrbitDebugViewType.SHOW_ALL
+var bShowTrajectory:bool = false # after 2 points are found, show the trajectory
+var numTimesPinned:int = 0 # once this meteor has been pinned twice, show the trajectory
 
 func is_final_day_before_impact():
 	if !bCalculatedImpact:
@@ -101,11 +103,32 @@ func init() -> void:
 	bInit = true
 	
 func _process(delta: float) -> void:
-	pass
+	var bUpdatedView:bool = false
+	if Input.is_key_pressed(KEY_KP_3):
+		orbitDebugViewType = EOrbitDebugViewType.SHOW_ALL
+		bUpdatedView = true
+	if Input.is_key_pressed(KEY_KP_2):
+		orbitDebugViewType = EOrbitDebugViewType.SHOW_CURRENT_AND_ARC
+		bUpdatedView = true
+	if Input.is_key_pressed(KEY_KP_1):
+		orbitDebugViewType = EOrbitDebugViewType.SHOW_CURRENT
+		bUpdatedView = true
+	if Input.is_key_pressed(KEY_KP_0):
+		orbitDebugViewType = EOrbitDebugViewType.HIDE
+		bUpdatedView = true
+	
+	if bUpdatedView:
+		update_simulation_visual()
 
 func _input(event):
 	if Input.is_key_pressed(KEY_T):
 		increment_day()
+		update_simulation_visual()
+
+func pin():
+	numTimesPinned = numTimesPinned + 1
+	if numTimesPinned == 2:
+		bShowTrajectory = true
 		update_simulation_visual()
 
 func increment_day() -> void:
@@ -116,7 +139,8 @@ func increment_day() -> void:
 			print_debug("SHIELDED")
 		else:
 			print_debug("HIT")
-			GameState.take_damage.emit(50)
+			GameState.take_damage.emit(10)
+		GameState.meteoroid_destroyed.emit()
 		
 	currentPositionIdx = currentPositionIdx + 1
 
@@ -159,8 +183,9 @@ func update_simulation(launchVelocity:Vector2) -> void:
 	
 func update_simulation_visual() -> void:
 	# Draw path projection
-	if orbitDebugViewType == EOrbitDebugViewType.SHOW_ALL || orbitDebugViewType == EOrbitDebugViewType.SHOW_CURRENT_AND_ARC:
+	if bShowTrajectory || orbitDebugViewType == EOrbitDebugViewType.SHOW_ALL || orbitDebugViewType == EOrbitDebugViewType.SHOW_CURRENT_AND_ARC:
 		launchSimulationLineNode.points = calculatedLineVertices
+		launchSimulationLineNode.visible = true
 	else:
 		launchSimulationLineNode.points.clear()
 		launchSimulationLineNode.visible = false
@@ -246,7 +271,6 @@ func interpolate_intersection_ray_sphere(p0:Vector2, p1:Vector2, c:Vector2, r:fl
 		return p0
 	
 	var distanceTravelledToCollision:float = P0CProj - sqrt(distanceTravelledInsideCollisionSqr)
-	#print_debug(distanceTravelledToCollision)
 	return p0 + distanceTravelledToCollision * P0P1Norm
 
 func _onDayIncremented():

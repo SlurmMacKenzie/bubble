@@ -16,6 +16,7 @@ var rng:RandomNumberGenerator = RandomNumberGenerator.new()
 func _ready() -> void:
 	GameState.game_started.connect(_onGameStateChanged)
 	#GameState.game_state_changed.connect(_onGameStateChanged)
+	GameState.meteoroid_destroyed.connect(_onMeteoroidDestroyed)
 	pass
 
 func _process(delta: float) -> void:
@@ -74,17 +75,23 @@ func clearMeteoroids() -> void:
 	spawnedMeteoroidNodes.clear()
 
 # used by the bubble to see whether it should pop
-func getClosestMeteorPos(pos:Vector2) -> Vector2:
+func getClosestMeteorPos(pos:Vector2) -> Node2D:
 	var distSqr:float = INF
 	var closestMeteoroidPos = Vector2.INF
+	var closestMeteoroid:Node2D
 	for meteoroid in spawnedMeteoroidNodes:
 		var candidateDistSqr:float = (meteoroid.get_current_position() - pos).length_squared()
 		if candidateDistSqr < distSqr:
 			distSqr = candidateDistSqr
 			closestMeteoroidPos = meteoroid.get_current_position()
+			closestMeteoroid = meteoroid
 	
-	return closestMeteoroidPos
+	return closestMeteoroid
 			
 func _onGameStateChanged():
+	randomiseLaunchParams()
+	simulateLaunch()
+
+func _onMeteoroidDestroyed():
 	randomiseLaunchParams()
 	simulateLaunch()

@@ -26,8 +26,10 @@ func on_bubble_pop(bubble: Bubble, dots: bool):
 		
 		if collisions[bubble.pop_pos] == 3:
 			var meteoroid = MeteoroidLauncher.getClosestMeteorPos(bubble.pop_pos)
+			var meteoroidPos = meteoroid.get_current_position()
 			
-			spawn_marker(bubble.pop_pos, meteoroid)
+			spawn_marker(bubble.pop_pos, meteoroidPos)
+			meteoroid.pin()
 			
 			var to_erase = []
 			var to_delete = []

@@ -13,7 +13,7 @@ impactSpriteNodeShield = NodePath("CollisionSprite_Shield")
 launchDebugSpriteNode = NodePath("MeteoroidSprite")
 gravityStrengthMult = 10000.0
 maxSimulationDays = 20
-orbitDebugViewType = 1
+orbitDebugViewType = 3
 
 [node name="MeteoroidSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

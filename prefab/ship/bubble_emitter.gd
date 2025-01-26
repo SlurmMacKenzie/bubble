@@ -18,7 +18,7 @@ func _input(event: InputEvent) -> void:
 			ship.owner.add_child(bubble)
 			var pos:Vector2 = get_bubble_position()
 			bubble.update_position(pos)
-			bubble.set_pop_locaction(MeteoroidLauncher.getClosestMeteorPos(bubble.global_position))
+			bubble.set_pop_locaction(MeteoroidLauncher.getClosestMeteorPos(bubble.global_position).get_current_position())
 			$BubbleEmitter_Sound.play()
 			bubble_count -= 1
 			ship.update_sprite(bubble_count, true)
