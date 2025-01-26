@@ -1,18 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://ciss42im0l4vs"]
+[gd_scene load_steps=2 format=3 uid="uid://ciss42im0l4vs"]
 
 [ext_resource type="Script" path="res://prefab/Meteoroid/meteoroidLauncher.gd" id="1_kkfr7"]
-[ext_resource type="PackedScene" uid="uid://dieya242r8oga" path="res://prefab/Meteoroid/meteoroid.tscn" id="2_cvprs"]
 
-[node name="MeteoroidLauncher" type="Node2D" node_paths=PackedStringArray("meteoroid")]
+[node name="MeteoroidLauncher" type="Node2D"]
 position = Vector2(206, 105)
 script = ExtResource("1_kkfr7")
-meteoroid = NodePath("Meteoroid")
 launchVelocity = Vector2(30, -5)
 randomisedSpeedBounds = Vector2(20, 130)
 randomisedAngleBounds = Vector2(40, 100)
-
-[node name="Meteoroid" parent="." instance=ExtResource("2_cvprs")]
-earthRadius = 85.0
-gravityStrengthMult = 10000.0
-maxSimulationDays = 20
-orbitDebugViewType = 1

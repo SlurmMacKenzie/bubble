@@ -144,7 +144,6 @@ func update_simulation_visual() -> void:
 	impactSpriteNode.visible = bCalculatedImpact && orbitDebugViewType != EOrbitDebugViewType.HIDE
 	if bCalculatedImpact:
 		impactSpriteNode.position = calculatedImpactPoint
-		print_debug(impactSpriteNode.position)
 		
 	launchDebugSpriteNode.visible = orbitDebugViewType == EOrbitDebugViewType.SHOW_ALL
 

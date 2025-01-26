@@ -9,6 +9,9 @@ script = ExtResource("1_cxspw")
 launchSimulationLineNode = NodePath("LaunchSimulationLine")
 impactSpriteNode = NodePath("CollisionSprite")
 launchDebugSpriteNode = NodePath("MeteoroidSprite")
+earthRadius = 85.0
+gravityStrengthMult = 10000.0
+maxSimulationDays = 20
 orbitDebugViewType = 1
 
 [node name="MeteoroidSprite" type="Sprite2D" parent="."]
