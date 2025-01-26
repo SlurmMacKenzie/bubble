@@ -12,7 +12,8 @@ var spawnedMeteoroidNodes:Array
 var rng:RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready() -> void:
-	simulateLaunch()
+	#simulateLaunch()
+	pass
 
 func _process(delta: float) -> void:
 	if bResimulateLaunch:
