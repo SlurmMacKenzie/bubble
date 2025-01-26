@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnh38wfpyp3or"]
+[gd_scene load_steps=5 format=3 uid="uid://cnh38wfpyp3or"]
 
 [ext_resource type="PackedScene" uid="uid://vd4f2o4vlehm" path="res://assets/art/clockhand/planet_clockhand.blend" id="1_8yobj"]
 [ext_resource type="Texture2D" uid="uid://b2jaxlaia530t" path="res://assets/art/clockhand/textures/yellow_green.png" id="2_wr7rk"]
+[ext_resource type="Script" path="res://prefab/planet/planet_timepass.gd" id="2_yajvv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_unir3"]
 shading_mode = 0
 albedo_texture = ExtResource("2_wr7rk")
 
 [node name="hourhand" instance=ExtResource("1_8yobj")]
+script = ExtResource("2_yajvv")
 
 [node name="Skeleton3D" parent="Armature" index="0"]
 bones/0/position = Vector3(0, -2.72956, 0)
