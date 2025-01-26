@@ -4,7 +4,8 @@ enum EOrbitPhysicsType {DIST_SQR,DIST,CONST}
 enum EOrbitDebugViewType {SHOW_ALL,SHOW_CURRENT_AND_ARC,SHOW_CURRENT,HIDE}
 
 @export var launchSimulationLineNode:Node2D
-@export var impactSpriteNode:Node2D
+@export var impactSpriteNodeEarth:Node2D
+@export var impactSpriteNodeShield:Node2D
 @export var launchDebugSpriteNode:Node2D
 
 var ghostScene: PackedScene = load("res://prefab/Meteoroid/meteoroidGhost.tscn")
@@ -16,9 +17,9 @@ var spawnedGhostNodes:Array
 @export var drag:float = 0.003
 
 # These are guesses for testing
-@export var earthRadius:float = 60.0
+@export var earthRadius:float = 85.0
+@export var shieldRadius:float = 105.0
 @export var meteoroidRadius:float = 0.0
-var collisionDistanceSqr:float;
 
 @export var gravityStrengthMult:float = 100.0
 
@@ -29,7 +30,8 @@ var gravityCentreLocalPos:Vector2
 # Results of calculations we need to run the game. In debugging, we can recalculate every frame
 var calculatedDayPositions:PackedVector2Array
 var calculatedLineVertices:PackedVector2Array
-var calculatedImpactPoint:Vector2
+var calculatedImpactPointShield:Vector2
+var calculatedImpactPointEarth:Vector2
 var bCalculatedImpact:bool
 
 # Simulation sanity limits
@@ -50,16 +52,13 @@ func is_final_day_before_impact():
 	if !bCalculatedImpact:
 		return false
 	
-	if currentPositionIdx < len(calculatedDayPositions):
-		return false
-		
-	return true
+	return (currentPositionIdx == len(calculatedDayPositions)-1)
 	
 	
-const shield_angle_range:float = 0.2
+const shield_angle_range:float = 0.4
 
 func am_hitting_shield():
-	var planet_to_shield_impact:Vector2 = calculatedImpactPoint - gravityCentrePos
+	var planet_to_shield_impact:Vector2 = to_global(calculatedImpactPointShield) - gravityCentrePos
 	var asteroid_impact_angle:float = atan2(planet_to_shield_impact.y, planet_to_shield_impact.x) 
 	var planet_to_shield_pos:Vector2 = GameState.shield_position - gravityCentrePos
 	var shield_angle:float = atan2(planet_to_shield_pos.y, planet_to_shield_pos.x) 
@@ -85,8 +84,6 @@ func init() -> void:
 	
 	stepPos = position
 	stepVel = Vector2.ZERO
-	print_tree()
-	print_debug(get_parent())
 
 	if earthNode:
 		gravityCentrePos = earthNode.position
@@ -121,13 +118,12 @@ func get_current_position() -> Vector2:
 	if currentPositionIdx < len(spawnedGhostNodes):
 		return spawnedGhostNodes[currentPositionIdx].global_position
 	if bCalculatedImpact:
-		return calculatedImpactPoint
+		return calculatedImpactPointEarth
 	return Vector2.ZERO
 
 func update_simulation(launchVelocity:Vector2) -> void:
 	# here so that we can easily move things in debug mode
 	gravityCentreLocalPos = to_local(gravityCentrePos)
-	collisionDistanceSqr = (earthRadius + meteoroidRadius)*(earthRadius + meteoroidRadius);
 	
 	# Reset simulation
 	calculatedDayPositions.clear()
@@ -142,17 +138,17 @@ func update_simulation(launchVelocity:Vector2) -> void:
 	calculatedLineVertices.append(Vector2.ZERO)
 	calculatedLineVertices.append(stepPos)
 	# update this to a while loop with exit conditions
+	var distToEarthCentreSqr:float = INF
 	for i in range(maxSimulationDays):
-		var bCollidedThisDay:bool = false
 		for step in range(simulationStepsPerDay):
 			if !bCalculatedImpact:
-				bCollidedThisDay = step_simulation(simulationTimeStep, step)
-				if bCollidedThisDay:
+				distToEarthCentreSqr = step_simulation(simulationTimeStep, step)
+				if distToEarthCentreSqr < earthRadius*earthRadius:
 					bCalculatedImpact = true
-					calculatedLineVertices.append(calculatedImpactPoint)
+					calculatedLineVertices.append(calculatedImpactPointEarth) # always finish the line at the end
 				else:
 					calculatedLineVertices.append(stepPos)
-		if !bCalculatedImpact:
+		if !bCalculatedImpact && distToEarthCentreSqr > shieldRadius*shieldRadius: # don't add any day positions past the shield
 			calculatedDayPositions.append(stepPos)
 	
 func update_simulation_visual() -> void:
@@ -173,20 +169,23 @@ func update_simulation_visual() -> void:
 		else:
 			spawnedGhostNodes[iGhost].visible = false
 
-	impactSpriteNode.visible = bCalculatedImpact && orbitDebugViewType != EOrbitDebugViewType.HIDE
+	var bImpactSpritesVisible = bCalculatedImpact && orbitDebugViewType != EOrbitDebugViewType.HIDE
+	impactSpriteNodeEarth.visible = bImpactSpritesVisible
+	impactSpriteNodeShield.visible = bImpactSpritesVisible
 	if bCalculatedImpact:
-		impactSpriteNode.position = calculatedImpactPoint
+		impactSpriteNodeEarth.position = calculatedImpactPointEarth
+		impactSpriteNodeShield.position = calculatedImpactPointShield
 		
 	launchDebugSpriteNode.visible = orbitDebugViewType == EOrbitDebugViewType.SHOW_ALL
 
-# Returns true if impact
-func step_simulation(timeStep: float, stepI: int) -> bool:
+# Returns distance to earth centre sqr
+func step_simulation(timeStep: float, stepI: int) -> float:
 	#nice to have: if the distance is > some delta, step towards it in multiple stages
 	
 	var toGravityCentre:Vector2 = gravityCentreLocalPos - stepPos
 	var toGravityCentreDistSqr = toGravityCentre.length_squared()
 	
-	if toGravityCentreDistSqr < collisionDistanceSqr:
+	if toGravityCentreDistSqr < earthRadius*earthRadius:
 		return true
 	
 	var gravityStrength:float = gravityStrengthMult
@@ -212,21 +211,24 @@ func step_simulation(timeStep: float, stepI: int) -> bool:
 	var nextStepPos:Vector2 = stepPos + stepVel * timeStep
 	
 	# Check for a new collision
-	toGravityCentre = gravityCentreLocalPos - nextStepPos
-	toGravityCentreDistSqr = toGravityCentre.length_squared()
-	
-	var bCollided:bool = false
-	
-	if toGravityCentreDistSqr <= collisionDistanceSqr:
+	var nextToGravityCentre = gravityCentreLocalPos - nextStepPos
+	var nextTooGravityCentreDistSqr = nextToGravityCentre.length_squared()
+		
+	if nextTooGravityCentreDistSqr <= shieldRadius*shieldRadius && toGravityCentreDistSqr > shieldRadius*shieldRadius:
 		#print_debug(stepI)
-		bCollided = true
-		# There was a collision. Find the exact point:
-		calculatedImpactPoint = interpolate_intersection_ray_sphere(stepPos, nextStepPos, gravityCentreLocalPos, sqrt(collisionDistanceSqr))
+		# We've gone past the shield. Find the impact points:
+		calculatedImpactPointShield = interpolate_intersection_ray_sphere(stepPos, nextStepPos, gravityCentreLocalPos, shieldRadius)
+	
+	# note: we only hit this once, since afterwards we will early exit the fn
+	if nextTooGravityCentreDistSqr <= earthRadius*earthRadius:
+		#print_debug(stepI)
+		# We've hit the planet. Find the impact points:
+		calculatedImpactPointEarth = interpolate_intersection_ray_sphere(stepPos, nextStepPos, gravityCentreLocalPos, earthRadius)
 	
 	stepVel = nextStepVel
 	stepPos = nextStepPos
 	
-	return bCollided
+	return nextTooGravityCentreDistSqr
 
 func interpolate_intersection_ray_sphere(p0:Vector2, p1:Vector2, c:Vector2, r:float) -> Vector2:
 	var P0P1Norm:Vector2 = (p1 - p0).normalized()
