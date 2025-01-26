@@ -9,6 +9,8 @@ var spawnedMeteoroidNodes:Array
 
 @export var randomisedSpeedBounds:Vector2 = Vector2(20.0, 80.0)
 @export var randomisedAngleBounds:Vector2 = Vector2(30.0, 120.0) # Angle offset from pointing at planet
+@export var randomisedLaunchPositionDistanceFromEarthDeadzone = 330.0
+@export var randomisedLaunchPositionDistanceFromEdgeDeadzone = 50.0
 var rng:RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready() -> void:
@@ -34,10 +36,29 @@ func randomiseLaunchParams() -> void:
 	var angle = rng.randf_range(randomisedAngleBounds.x, randomisedAngleBounds.y)
 	if rng.randf() < 0.5:
 		angle *= -1.0
-	var newLaunchVelocity:Vector2 = (get_viewport_rect().size / 2) - global_position
+	var viewPortRange:Vector2 = get_viewport_rect().size
+	var newLaunchVelocity:Vector2 = (viewPortRange / 2) - global_position
 	newLaunchVelocity = newLaunchVelocity.normalized()
 	newLaunchVelocity = newLaunchVelocity.rotated(deg_to_rad(angle)) * speed
 	launchVelocity = newLaunchVelocity
+	
+	var launchPosition:Vector2 = getRandPositionOnScreen()
+	# For now (it's a game jam, cmon) I'm just checking if it's in the dead zone and retrying. Don't want to bias the distbn.
+	for i in range(10):
+		if launchPosition.distance_squared_to(viewPortRange / 2) < randomisedLaunchPositionDistanceFromEarthDeadzone*randomisedLaunchPositionDistanceFromEarthDeadzone:
+			launchPosition = getRandPositionOnScreen()
+			#print_debug("Retrying random position: ", i)
+			if i >= 10:
+				print_debug("Can't find good spawn location")
+		
+	position = launchPosition
+
+func getRandPositionOnScreen() -> Vector2:
+	return 	Vector2( \
+			randf_range(randomisedLaunchPositionDistanceFromEdgeDeadzone, \
+				get_viewport_rect().size.x - randomisedLaunchPositionDistanceFromEdgeDeadzone), \
+			randf_range(randomisedLaunchPositionDistanceFromEdgeDeadzone, \
+				get_viewport_rect().size.y - randomisedLaunchPositionDistanceFromEdgeDeadzone))
 
 func simulateLaunch() -> void:
 	var newMeteoroid:Node2D = meteoroidScene.instantiate()

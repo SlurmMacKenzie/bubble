@@ -8,3 +8,5 @@ script = ExtResource("1_kkfr7")
 launchVelocity = Vector2(30, -5)
 randomisedSpeedBounds = Vector2(20, 130)
 randomisedAngleBounds = Vector2(40, 100)
+randomisedLaunchPositionDistanceFromEarthDeadzone = 500.0
+randomisedLaunchPositionDistanceFromEdgeDeadzone = 100.0
