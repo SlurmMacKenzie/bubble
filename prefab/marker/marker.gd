@@ -14,6 +14,8 @@ func set_time(value: int):
 func increase_time():
 	time += 1
 	$RichTextLabel.text = str(time)
+	var id = randi_range(1,4)
+	$Sprite2D.texture = load("res://assets/art/asteroids/asteroid_marker_0"+ str(id) +".png")
 
 
 func appear():
