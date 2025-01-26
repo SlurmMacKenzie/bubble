@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://h8odvkd34fva"]
+
+[ext_resource type="PackedScene" uid="uid://dkf5qq1w1kcvw" path="res://scenes/mainmenu.tscn" id="1_x6qgm"]
+[ext_resource type="PackedScene" uid="uid://cnm0dryqavpj" path="res://prefab/intro/intro.tscn" id="2_ukree"]
+
+[node name="StartFlow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" parent="." instance=ExtResource("1_x6qgm")]
+layout_mode = 1
+
+[node name="Intro" parent="." instance=ExtResource("2_ukree")]
+visible = false
+z_index = 50
+layout_mode = 1
