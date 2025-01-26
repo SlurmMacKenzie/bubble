@@ -17,7 +17,6 @@ config/icon="res://assets/art/ship_sprite/ship_001.png"
 
 [autoload]
 
-Debug="*res://scripts/debug.gd"
 GameState="*res://scripts/gamestate.gd"
 Bubblemanager="*res://scripts/bubblemanager.gd"
 MeteoroidLauncher="*res://prefab/Meteoroid/MeteoroidLauncher.gd"
