@@ -6,7 +6,6 @@ signal bubble_spawn(remaining: int)
 var bubbles = []
 var markers = []
 var collisions = {}
-var meteoroids = []
 
 var day:int = 1
 
@@ -27,9 +26,8 @@ func on_bubble_pop(bubble: Bubble, dots: bool):
 		
 		if collisions[bubble.pop_pos] == 3:
 			var meteoroid = MeteoroidLauncher.getClosestMeteorPos(bubble.pop_pos)
-			meteoroids.append(meteoroid)
 			
-			spawn_marker(bubble.pop_pos)
+			spawn_marker(bubble.pop_pos, meteoroid)
 			
 			var to_erase = []
 			var to_delete = []
@@ -43,7 +41,7 @@ func on_bubble_pop(bubble: Bubble, dots: bool):
 				b.delete()
 
 
-func spawn_marker(pos: Vector2):
+func spawn_marker(pos: Vector2, meteoroid):
 	var m = load("res://prefab/marker/marker.tscn")
 	var marker_instance = m.instantiate()
 	add_child(marker_instance)
@@ -51,7 +49,8 @@ func spawn_marker(pos: Vector2):
 	marker_instance.appear()
 	markers.append({
 		"marker": marker_instance,
-		"day": day
+		"day": day,
+		"meteoroid": meteoroid
 	})
 	
 func check_intersection(b1: Bubble, b2: Bubble):
