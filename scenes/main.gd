@@ -1,5 +1,6 @@
 extends Node2D
 var imgui:bool = false
+var fullscreen:bool = false
 
 #Scene Helper variables
 @onready var ship = $Ship
@@ -25,6 +26,13 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("debug_changestate"):
 		GameState._changeState()
 		GameState.game_state_changed.emit()
+	if Input.is_action_just_pressed("fullscreen"):
+		if !fullscreen:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			fullscreen = true
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			fullscreen = false
 
 func pauseMenu():
 	if is_paused:

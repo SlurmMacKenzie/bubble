@@ -23,7 +23,8 @@ const wobble_speed:float = 0.2
 const wobble_weight:float = 0.3
 
 func _physics_process(delta: float) -> void:
-	radius += delta * grow_ratio
+	if !poped:
+		radius += delta * grow_ratio
 	draw_bubble()
 	
 	if radius > max_radius and !poped:
@@ -52,6 +53,7 @@ func draw_bubble():
 		pos_list.append(radian_pos)
 	
 	%BubbleVisual.polygon = pos_list
+	%BubbleShader.polygon = pos_list
 	%CollisionShape2D.shape.radius = radius
 	pos_list.append(pos_list[0])
 	%Line2D.points = pos_list
@@ -83,9 +85,13 @@ func pop(show_dots: bool):
 	%CPUParticles2D.emission_sphere_radius = radius
 	%CPUParticles2D.emitting = true
 	%BubbleVisual.visible = false
+	%BubbleShader.visible = false
 	%Line2D.visible = false
 	%Dots.visible = show_dots
 	%Pop.play()
+	Bubblemanager.emit_signal("bubble_pop", self, show_dots)
+	if !show_dots:
+		$DeleteTimer.start()
 	#tween_fadeout = create_tween()
 	#tween_fadeout.tween_property(self, "modulate:a", 0.0, 0.03).connect("finished", on_fadeout_end)
 
@@ -109,3 +115,11 @@ func _on_body_exited(body: Node2D) -> void:
 		ship_angle = v.angle()
 		ship_entrance_amplitude = 10
 		print("ship_exit")
+
+
+func _on_delete_timer_timeout() -> void:
+	self.get_parent().remove_child(self)
+	self.queue_free()
+
+func increase_time():
+	%Dots.increase_time()
