@@ -6,6 +6,7 @@ signal bubble_spawn(remaining: int)
 var bubbles = []
 var markers = []
 var collisions = {}
+var meteoroids = []
 
 var day:int = 1
 
@@ -25,6 +26,9 @@ func on_bubble_pop(bubble: Bubble, dots: bool):
 			collisions[bubble.pop_pos] = collisions[bubble.pop_pos] + 1
 		
 		if collisions[bubble.pop_pos] == 3:
+			var meteoroid = MeteoroidLauncher.getClosestMeteorPos(bubble.pop_pos)
+			meteoroids.append(meteoroid)
+			
 			spawn_marker(bubble.pop_pos)
 			
 			var to_erase = []

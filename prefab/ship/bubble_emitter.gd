@@ -3,7 +3,7 @@ extends Node2D
 var bubble:Bubble = null
 var ship:Ship
 var velocity:float = 0.0
-var bubble_count:int = 3
+var bubble_count:int = 9
 
 func _ready() -> void:
 	ship = owner
