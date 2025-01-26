@@ -2,7 +2,7 @@ extends Area2D
 class_name Bubble
 
 @export var radius:float = 5.0
-@export var max_radius:float = 128.0
+@export var max_radius:float = 190.0
 @export var noise1:FastNoiseLite
 
 var tween_fadeout:Tween
