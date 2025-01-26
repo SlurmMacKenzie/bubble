@@ -28,7 +28,7 @@ func _physics_process(delta: float) -> void:
 	# did i hit the planet?
 	for i in ship.get_slide_collision_count():
 		var collision = ship.get_slide_collision(i)
-		print("I collided with ", collision.get_collider().name)
+		#print("I collided with ", collision.get_collider().name)
 		#if collision.get_collider() is Planet:
 		#	collision.get_collider().take_damage.emit(3)
 	

@@ -27,14 +27,14 @@ func _process(delta: float) -> void:
 		simulateLaunch()
 
 func _input(event):
-	if Input.is_key_pressed(KEY_R): #launch new meteoroid with random vel
+	if Input.is_key_pressed(KEY_KP_7): #launch new meteoroid with random vel
 		randomiseLaunchParams()
 		simulateLaunch()
-	if Input.is_key_pressed(KEY_E): #launch meteoroid with vel from inspector
+	if Input.is_key_pressed(KEY_6): #launch meteoroid with vel from inspector
 		simulateLaunch()
-	if Input.is_key_pressed(KEY_Y): #clear all spawned meteoroids
+	if Input.is_key_pressed(KEY_9): #clear all spawned meteoroids
 		clearMeteoroids()
-	#note: there's also the debug hotkey T which increments the meteoroid pos by 1 day
+	#note: there's also the debug hotkey 8 which increments the meteoroid pos by 1 day
 
 func randomiseLaunchParams() -> void:
 	var speed = rng.randf_range(randomisedSpeedBounds.x, randomisedSpeedBounds.y)
@@ -85,11 +85,12 @@ func getClosestMeteorPos(pos:Vector2) -> Node2D:
 	var closestMeteoroidPos = Vector2.INF
 	var closestMeteoroid:Node2D
 	for meteoroid in spawnedMeteoroidNodes:
-		var candidateDistSqr:float = (meteoroid.get_current_position() - pos).length_squared()
-		if candidateDistSqr < distSqr:
-			distSqr = candidateDistSqr
-			closestMeteoroidPos = meteoroid.get_current_position()
-			closestMeteoroid = meteoroid
+		if meteoroid:
+			var candidateDistSqr:float = (meteoroid.get_current_position() - pos).length_squared()
+			if candidateDistSqr < distSqr:
+				distSqr = candidateDistSqr
+				closestMeteoroidPos = meteoroid.get_current_position()
+				closestMeteoroid = meteoroid
 	
 	return closestMeteoroid
 			

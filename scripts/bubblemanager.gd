@@ -43,7 +43,7 @@ func on_bubble_pop(bubble: Bubble, dots: bool):
 			for k in to_erase:
 				bubbles.erase(k)
 			for b in to_delete:
-				b.delete()
+				b.delete.call_deferred()
 
 
 func spawn_marker(pos: Vector2, meteoroid):

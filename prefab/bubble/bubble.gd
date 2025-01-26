@@ -37,7 +37,7 @@ func _physics_process(delta: float) -> void:
 		pop(false)
 	
 	if radius >= pop_radius and !poped:
-		pop(true) 
+		pop(true)
 	
 	if ship_entered:
 		if ship.position.distance_to(position) > radius * 0.8:

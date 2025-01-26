@@ -109,7 +109,7 @@ func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_KP_2):
 		orbitDebugViewType = EOrbitDebugViewType.SHOW_CURRENT_AND_ARC
 		bUpdatedView = true
-	if Input.is_key_pressed(KEY_H):
+	if Input.is_key_pressed(KEY_KP_1):
 		orbitDebugViewType = EOrbitDebugViewType.SHOW_CURRENT
 		bUpdatedView = true
 	if Input.is_key_pressed(KEY_KP_0):
@@ -120,7 +120,7 @@ func _process(delta: float) -> void:
 		update_simulation_visual()
 
 func _input(event):
-	if Input.is_key_pressed(KEY_T):
+	if Input.is_key_pressed(KEY_KP_8):
 		increment_day()
 		update_simulation_visual()
 
@@ -145,8 +145,8 @@ func increment_day() -> void:
 	currentPositionIdx = currentPositionIdx + 1
 
 func get_current_position() -> Vector2:
-	if currentPositionIdx < len(spawnedGhostNodes):
-		return spawnedGhostNodes[currentPositionIdx].global_position
+	if currentPositionIdx < len(calculatedDayPositions):
+		return to_global(calculatedDayPositions[currentPositionIdx])
 	if bCalculatedImpact:
 		return calculatedImpactPointEarth
 	return Vector2.ZERO
@@ -210,9 +210,7 @@ func update_simulation_visual() -> void:
 	launchDebugSpriteNode.visible = orbitDebugViewType == EOrbitDebugViewType.SHOW_ALL
 
 # Returns distance to earth centre sqr
-func step_simulation(timeStep: float, stepI: int) -> float:
-	#nice to have: if the distance is > some delta, step towards it in multiple stages
-	
+func step_simulation(timeStep: float, stepI: int) -> float:	
 	var toGravityCentre:Vector2 = gravityCentreLocalPos - stepPos
 	var toGravityCentreDistSqr = toGravityCentre.length_squared()
 	

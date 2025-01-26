@@ -10,7 +10,7 @@ func _ready() -> void:
 	GameState.take_damage.connect(_onDamageTaken)
 	
 func _process(delta: float) -> void:
-	timerLabel.text = str($Timer.time_left as int)
+	timerLabel.text = str(ceil($Timer.time_left))
 	resourceLabel.text = str(Bubblemanager.bubble_count)
 	$MeteroidCount.text = "Meteoroids Approaching the planet: %s" % MeteoroidLauncher.spawnedMeteoroidNodes.size()
 	
