@@ -11,7 +11,7 @@ signal game_state_changed
 signal day_incremented
 signal take_damage(damage)
 signal meteoroid_destroyed
-
+signal shieldSuccessful
 
 func _changeState():
 	if(current_state == GAME_STATE.SHIP):

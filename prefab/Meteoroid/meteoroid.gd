@@ -137,11 +137,12 @@ func increment_day() -> void:
 		var hit_shield:bool = am_hitting_shield()
 		if hit_shield:
 			print_debug("SHIELDED")
+			GameState.shieldSuccessful.emit()
 		else:
 			print_debug("HIT")
-			GameState.take_damage.emit(10)
+			GameState.take_damage.emit(20)
 		GameState.meteoroid_destroyed.emit()
-		
+		self.hide.call_deferred()
 	currentPositionIdx = currentPositionIdx + 1
 
 func get_current_position() -> Vector2:
