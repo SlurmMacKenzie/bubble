@@ -43,5 +43,6 @@ func _physics_process(delta: float) -> void:
 	shield.rotation = new_angle + PI /2
 	shield.position = new_planet_to_shield
 	
+	GameState.shield_position = shield.position
 
 	
