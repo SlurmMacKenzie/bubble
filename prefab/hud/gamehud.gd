@@ -12,7 +12,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	timerLabel.text = str($Timer.time_left as int)
 	resourceLabel.text = str(Bubblemanager.bubble_count)
-	$MeteroidCount.text = "Meteroids Approaching the planet: %s" % MeteoroidLauncher.spawnedMeteoroidNodes.size()
+	$MeteroidCount.text = "Meteoroids Approaching the planet: %s" % MeteoroidLauncher.spawnedMeteoroidNodes.size()
 	
 func _on_button_pressed() -> void:
 	timerLabel.show()

@@ -71,7 +71,7 @@ offset_left = 9.0
 offset_top = 81.0
 offset_right = 350.0
 offset_bottom = 119.0
-text = "Meteroids approaching: 0"
+text = "Meteoroids approaching: 0"
 
 [node name="Label" type="Label" parent="."]
 visible = false
