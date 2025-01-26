@@ -144,3 +144,7 @@ func set_pop_locaction(pos: Vector2):
 		return
 	else:
 		pop_radius = dist
+
+func delete():
+	self.get_parent().remove_child(self)
+	self.queue_free()
