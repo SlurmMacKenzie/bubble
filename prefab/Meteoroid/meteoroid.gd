@@ -1,9 +1,11 @@
 extends Node2D
 
 enum EOrbitPhysicsType {DIST_SQR,DIST,CONST} 
+enum EOrbitDebugViewType {SHOW_ALL,SHOW_CURRENT_AND_ARC,SHOW_CURRENT,HIDE}
 
 @export var launchSimulationLineNode:Node2D
 @export var impactSpriteNode:Node2D
+@export var launchDebugSpriteNode:Node2D
 
 var ghostScene: PackedScene = load("res://prefab/Meteoroid/meteoroidGhost.tscn")
 var spawnedGhostNodes:Array
@@ -40,6 +42,10 @@ var stepVel:Vector2
 
 var bInit:bool = false
 
+# Runtime gameplay
+var currentPositionIdx:int = 0
+@export var orbitDebugViewType:EOrbitDebugViewType = EOrbitDebugViewType.SHOW_ALL
+
 func _ready() -> void:
 	init()
 
@@ -68,9 +74,23 @@ func init() -> void:
 	
 	bInit = true
 	
-
 func _process(delta: float) -> void:
 	pass
+
+func _input(event):
+	if Input.is_key_pressed(KEY_T):
+		increment_day()
+		update_simulation_visual()
+
+func increment_day() -> void:
+	currentPositionIdx = currentPositionIdx + 1
+	
+func get_current_position() -> Vector2:
+	if currentPositionIdx < len(spawnedGhostNodes):
+		return spawnedGhostNodes[currentPositionIdx].global_position
+	if bCalculatedImpact:
+		return calculatedImpactPoint
+	return Vector2.ZERO
 
 func update_simulation(launchVelocity:Vector2) -> void:
 	# here so that we can easily move things in debug mode
@@ -105,20 +125,28 @@ func update_simulation(launchVelocity:Vector2) -> void:
 	
 func update_simulation_visual() -> void:
 	# Draw path projection
-	launchSimulationLineNode.points = calculatedLineVertices
+	if orbitDebugViewType == EOrbitDebugViewType.SHOW_ALL || orbitDebugViewType == EOrbitDebugViewType.SHOW_CURRENT_AND_ARC:
+		launchSimulationLineNode.points = calculatedLineVertices
+	else:
+		launchSimulationLineNode.points.clear()
+		launchSimulationLineNode.visible = false
 	
 	# Draw positions for each day
 	for iGhost in len(spawnedGhostNodes):
-		if iGhost < len(calculatedDayPositions):
+		var bGhostExists:bool = iGhost < len(calculatedDayPositions)
+		var bToggledShowGhost:bool = (orbitDebugViewType != EOrbitDebugViewType.HIDE && iGhost == currentPositionIdx) || orbitDebugViewType == EOrbitDebugViewType.SHOW_ALL
+		if bGhostExists && bToggledShowGhost:
 			spawnedGhostNodes[iGhost].position = calculatedDayPositions[iGhost]
 			spawnedGhostNodes[iGhost].visible = true
 		else:
 			spawnedGhostNodes[iGhost].visible = false
 
-	impactSpriteNode.visible = bCalculatedImpact
+	impactSpriteNode.visible = bCalculatedImpact && orbitDebugViewType != EOrbitDebugViewType.HIDE
 	if bCalculatedImpact:
 		impactSpriteNode.position = calculatedImpactPoint
 		print_debug(impactSpriteNode.position)
+		
+	launchDebugSpriteNode.visible = orbitDebugViewType == EOrbitDebugViewType.SHOW_ALL
 
 # Returns true if impact
 func step_simulation(timeStep: float, stepI: int) -> bool:

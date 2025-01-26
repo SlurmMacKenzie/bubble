@@ -15,3 +15,4 @@ randomisedAngleBounds = Vector2(40, 100)
 earthRadius = 85.0
 gravityStrengthMult = 10000.0
 maxSimulationDays = 20
+orbitDebugViewType = 1

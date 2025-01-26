@@ -4,10 +4,12 @@
 [ext_resource type="Script" path="res://prefab/Meteoroid/meteoroid.gd" id="1_cxspw"]
 [ext_resource type="Texture2D" uid="uid://ce5hrnwt7rtti" path="res://assets/art/textures/orange_purple.png" id="2_xv4i0"]
 
-[node name="Meteoroid" type="Node2D" node_paths=PackedStringArray("launchSimulationLineNode", "impactSpriteNode")]
+[node name="Meteoroid" type="Node2D" node_paths=PackedStringArray("launchSimulationLineNode", "impactSpriteNode", "launchDebugSpriteNode")]
 script = ExtResource("1_cxspw")
 launchSimulationLineNode = NodePath("LaunchSimulationLine")
 impactSpriteNode = NodePath("CollisionSprite")
+launchDebugSpriteNode = NodePath("MeteoroidSprite")
+orbitDebugViewType = 1
 
 [node name="MeteoroidSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
