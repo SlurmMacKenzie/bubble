@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Ship
 
 
-func update_sprite(remaining_bubble: int):
+func update_sprite(remaining_bubble: int, anim:bool = false):
 	match remaining_bubble:
 		3: %ShipSprite.texture = load("res://assets/art/ship_sprite/ship_001.png")
 		2: %ShipSprite.texture = load("res://assets/art/ship_sprite/ship_002.png")
