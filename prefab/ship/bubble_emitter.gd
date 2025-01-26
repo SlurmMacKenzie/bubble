@@ -15,11 +15,19 @@ func _input(event: InputEvent) -> void:
 			var b = load("res://prefab/bubble/bubble.tscn")
 			bubble = b.instantiate()
 			ship.owner.add_child(bubble)
+			var pos:Vector2 = get_bubble_position()
+			bubble.update_position(pos)
+			bubble.set_pop_locaction(MeteoroidLauncher.getClosestMeteorPos(bubble.global_position))
 			$BubbleEmitter_Sound.play()
 			bubble_count -= 1
 			ship.update_sprite(bubble_count, true)
 			%bubble_emitted.emitting = true
+			
 
+func get_bubble_position() -> Vector2:
+	return ship.position + Vector2.UP.rotated(ship.rotation) * (bubble.radius + 30)
+	
+	
 func _physics_process(delta: float) -> void:
 	if bubble and !bubble.detached:
 		bubble.update_position(ship.position + Vector2.UP.rotated(ship.rotation) * (bubble.radius + 30))

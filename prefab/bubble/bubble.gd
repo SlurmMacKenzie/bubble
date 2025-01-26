@@ -22,14 +22,23 @@ const sample_size:int = 64
 const wobble_speed:float = 0.2
 const wobble_weight:float = 0.3
 
+var pop_radius:float = INF
+var pop_pos:Vector2
+
+func _ready() -> void:
+	GameState.connect("game_state_changed", on_gamestate_changed)
+	
 func _physics_process(delta: float) -> void:
 	if !poped:
 		radius += delta * grow_ratio
 	draw_bubble()
 	
 	if radius > max_radius and !poped:
-		pop(true)
-		
+		pop(false)
+	
+	if radius >= pop_radius and !poped:
+		pop(true) 
+	
 	if ship_entered:
 		if ship.position.distance_to(position) > radius * 0.8:
 			var v:Vector2 = position.direction_to(ship.position)
@@ -103,7 +112,6 @@ func _on_body_entered(body: Node2D) -> void:
 		var v:Vector2 = position.direction_to(ship.position)
 		ship_angle = v.angle()
 		ship_entrance_amplitude = 10
-		print("ship_entered")
 		
 
 
@@ -114,7 +122,6 @@ func _on_body_exited(body: Node2D) -> void:
 		var v:Vector2 = position.direction_to(ship.position)
 		ship_angle = v.angle()
 		ship_entrance_amplitude = 10
-		print("ship_exit")
 
 
 func _on_delete_timer_timeout() -> void:
@@ -122,4 +129,18 @@ func _on_delete_timer_timeout() -> void:
 	self.queue_free()
 
 func increase_time():
-	%Dots.increase_time()
+	if(GameState.current_state == GameState.GAME_STATE.ASTEROID):
+		%Dots.increase_time()
+
+func on_gamestate_changed():
+	if !poped:
+		pop(false)
+		
+func set_pop_locaction(pos: Vector2):
+	pop_pos = pos
+	var dist = pos.distance_to(global_position)
+	
+	if dist > max_radius:
+		return
+	else:
+		pop_radius = dist

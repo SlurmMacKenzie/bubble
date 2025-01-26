@@ -14,12 +14,12 @@ func _ready() -> void:
 
 func on_bubble_pop(bubble: Bubble, dots: bool):
 	if dots:
-		for b in bubbles:
-			if b["day"] == day:
-				var i:Array = check_intersection(bubble, b["bubble"])
-				if i.size() > 0:
-					for si in i:
-						spawn_marker(Vector2(si[0], si[1]))
+		#for b in bubbles:
+			#if b["day"] == day:
+				#var i:Array = check_intersection(bubble, b["bubble"])
+				#if i.size() > 0:
+					#for si in i:
+						#spawn_marker(Vector2(si[0], si[1]))
 		bubbles.append({
 			"bubble": bubble,
 			"day": day
@@ -66,5 +66,6 @@ func on_gamestate_changed():
 		day += 1
 		for m in markers:
 			m["marker"].increase_time()
+	
 		for b in bubbles:
 			b["bubble"].increase_time()

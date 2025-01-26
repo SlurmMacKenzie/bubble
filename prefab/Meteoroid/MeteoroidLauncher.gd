@@ -58,7 +58,7 @@ func getClosestMeteorPos(pos:Vector2) -> Vector2:
 		var candidateDistSqr:float = (meteoroid.get_current_position() - pos).length_squared()
 		if candidateDistSqr < distSqr:
 			distSqr = candidateDistSqr
-			closestMeteoroidPos = meteoroid.global_position
+			closestMeteoroidPos = meteoroid.get_current_position()
 	
 	return closestMeteoroidPos
 			
