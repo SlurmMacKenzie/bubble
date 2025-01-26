@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ciss42im0l4vs"]
 
-[ext_resource type="Script" path="res://prefab/Meteoroid/meteoroidLauncher.gd" id="1_kkfr7"]
+[ext_resource type="Script" path="res://prefab/Meteoroid/MeteoroidLauncher.gd" id="1_kkfr7"]
 
 [node name="MeteoroidLauncher" type="Node2D"]
 position = Vector2(206, 105)
