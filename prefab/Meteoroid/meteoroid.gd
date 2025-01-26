@@ -46,6 +46,31 @@ var bInit:bool = false
 var currentPositionIdx:int = 0
 @export var orbitDebugViewType:EOrbitDebugViewType = EOrbitDebugViewType.SHOW_ALL
 
+func is_final_day_before_impact():
+	if !bCalculatedImpact:
+		return false
+	
+	if currentPositionIdx < len(calculatedDayPositions):
+		return false
+		
+	return true
+	
+	
+const shield_angle_range:float = 0.2
+
+func am_hitting_shield():
+	var planet_to_shield_impact:Vector2 = calculatedImpactPoint - gravityCentrePos
+	var asteroid_impact_angle:float = atan2(planet_to_shield_impact.y, planet_to_shield_impact.x) 
+	var planet_to_shield_pos:Vector2 = GameState.shield_position - gravityCentrePos
+	var shield_angle:float = atan2(planet_to_shield_pos.y, planet_to_shield_pos.x) 
+	var angle_diff:float = abs(asteroid_impact_angle-shield_angle)
+	if angle_diff > PI:
+		# gone the long way round - go the other way!
+		angle_diff = 2 * PI - angle_diff
+	if angle_diff < shield_angle_range:
+		return true
+	return false	
+
 func _ready() -> void:
 	init()
 
@@ -87,6 +112,10 @@ func _input(event):
 
 func increment_day() -> void:
 	currentPositionIdx = currentPositionIdx + 1
+	
+	if is_final_day_before_impact():
+		var hit_shield = am_hitting_shield()
+		print_debug(hit_shield)
 	
 func get_current_position() -> Vector2:
 	if currentPositionIdx < len(spawnedGhostNodes):

@@ -4,6 +4,7 @@ enum GAME_STATE {SHIP = 0, ASTEROID = 1}
 
 var current_state = GAME_STATE.SHIP
 var day_count = 0
+var shield_position:Vector2
 
 signal game_state_changed
 signal day_incremented
