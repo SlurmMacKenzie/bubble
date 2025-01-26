@@ -72,6 +72,7 @@ func am_hitting_shield():
 
 func _ready() -> void:
 	init()
+	GameState.day_incremented.connect(_onDayIncremented)
 
 func launch(launchVelocity:Vector2) -> void:
 	init()
@@ -108,12 +109,17 @@ func _input(event):
 		update_simulation_visual()
 
 func increment_day() -> void:
-	currentPositionIdx = currentPositionIdx + 1
 	
 	if is_final_day_before_impact():
-		var hit_shield = am_hitting_shield()
-		print_debug(hit_shield)
-	
+		var hit_shield:bool = am_hitting_shield()
+		if hit_shield:
+			print_debug("SHIELDED")
+		else:
+			print_debug("HIT")
+			GameState.take_damage.emit(50)
+		
+	currentPositionIdx = currentPositionIdx + 1
+
 func get_current_position() -> Vector2:
 	if currentPositionIdx < len(spawnedGhostNodes):
 		return spawnedGhostNodes[currentPositionIdx].global_position
@@ -242,6 +248,9 @@ func interpolate_intersection_ray_sphere(p0:Vector2, p1:Vector2, c:Vector2, r:fl
 	var distanceTravelledToCollision:float = P0CProj - sqrt(distanceTravelledInsideCollisionSqr)
 	#print_debug(distanceTravelledToCollision)
 	return p0 + distanceTravelledToCollision * P0P1Norm
-	
+
+func _onDayIncremented():
+	increment_day()
+	update_simulation_visual()
 	
 	

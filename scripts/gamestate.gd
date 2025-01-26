@@ -6,9 +6,10 @@ var current_state = GAME_STATE.SHIP
 var day_count = 0
 var shield_position:Vector2
 
+signal game_started
 signal game_state_changed
 signal day_incremented
-
+signal take_damage(damage)
 
 func _changeState():
 	if(current_state == GAME_STATE.SHIP):
