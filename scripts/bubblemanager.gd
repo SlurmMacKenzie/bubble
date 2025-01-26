@@ -5,6 +5,7 @@ signal bubble_spawn(remaining: int)
 
 var bubbles = []
 var markers = []
+var collisions = {}
 
 var day:int = 1
 
@@ -14,22 +15,36 @@ func _ready() -> void:
 
 func on_bubble_pop(bubble: Bubble, dots: bool):
 	if dots:
-		#for b in bubbles:
-			#if b["day"] == day:
-				#var i:Array = check_intersection(bubble, b["bubble"])
-				#if i.size() > 0:
-					#for si in i:
-						#spawn_marker(Vector2(si[0], si[1]))
 		bubbles.append({
 			"bubble": bubble,
 			"day": day
 		})
+		if !collisions.has(bubble.pop_pos):
+			collisions[bubble.pop_pos] = 1
+		else:
+			collisions[bubble.pop_pos] = collisions[bubble.pop_pos] + 1
+		
+		if collisions[bubble.pop_pos] == 3:
+			spawn_marker(bubble.pop_pos)
+			
+			var to_erase = []
+			var to_delete = []
+			for b in bubbles:
+				if b["day"] == day and b["bubble"].pop_pos == bubble.pop_pos:
+					to_delete.append(b["bubble"])
+					to_erase.append(b)
+			for k in to_erase:
+				bubbles.erase(k)
+			for b in to_delete:
+				b.delete()
+
 
 func spawn_marker(pos: Vector2):
 	var m = load("res://prefab/marker/marker.tscn")
 	var marker_instance = m.instantiate()
 	add_child(marker_instance)
 	marker_instance.global_position = pos
+	marker_instance.appear()
 	markers.append({
 		"marker": marker_instance,
 		"day": day
@@ -62,6 +77,7 @@ func intersectTwoCircles(pos1: Vector2,r1, pos2: Vector2 ,r2):
 	return [[ix1, iy1], [ix2, iy2]]
 
 func on_gamestate_changed():
+	collisions.clear()
 	if(GameState.current_state == GameState.GAME_STATE.ASTEROID):
 		day += 1
 		for m in markers:
