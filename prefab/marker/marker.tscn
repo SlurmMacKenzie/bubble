@@ -5,7 +5,6 @@
 [ext_resource type="FontFile" uid="uid://c8xkf4haihbf1" path="res://assets/Space_Mono/SpaceMono-Regular.ttf" id="2_gwkyd"]
 
 [node name="Marker" type="Node2D"]
-visible = false
 script = ExtResource("1_08n3f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
