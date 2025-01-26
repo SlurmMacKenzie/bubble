@@ -3,7 +3,8 @@ extends Node2D
 var bubble:Bubble = null
 var ship:Ship
 var velocity:float = 0.0
-var bubble_count:int = 3
+const bubble_limit:int = 9
+var bubble_count:int = bubble_limit
 
 func _ready() -> void:
 	ship = owner
@@ -37,5 +38,5 @@ func _physics_process(delta: float) -> void:
 
 func on_game_state_changed():
 	if GameState.current_state == GameState.GAME_STATE.ASTEROID:
-		bubble_count = 3
+		bubble_count = bubble_limit
 		ship.update_sprite(bubble_count)

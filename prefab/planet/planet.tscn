@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b57us8ouiqsvk"]
+[gd_scene load_steps=14 format=3 uid="uid://b57us8ouiqsvk"]
 
 [ext_resource type="Script" path="res://prefab/planet/planet.gd" id="1_fnuhf"]
 [ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="1_h4k53"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://b8u7nijmynmqn" path="res://prefab/planet/atmosphere.tscn" id="5_hd6yd"]
 [ext_resource type="PackedScene" uid="uid://cnh38wfpyp3or" path="res://prefab/planet/hourhand.tscn" id="5_vva50"]
 [ext_resource type="Script" path="res://prefab/planet/health_bar.gd" id="6_00ptt"]
+[ext_resource type="AudioStream" uid="uid://csl13jbbmy7rj" path="res://assets/audio/SpaceESCape_SFX_NextDay.wav" id="7_7q1mf"]
+[ext_resource type="Script" path="res://prefab/planet/time_passing_sound.gd" id="10_3jjej"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3c1nh"]
 viewport_path = NodePath("SubViewport")
@@ -80,3 +82,8 @@ theme_override_font_sizes/font_size = 29
 theme_override_styles/background = SubResource("StyleBoxFlat_ffqbo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ww05b")
 script = ExtResource("6_00ptt")
+
+[node name="time_passing_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_7q1mf")
+volume_db = 24.0
+script = ExtResource("10_3jjej")

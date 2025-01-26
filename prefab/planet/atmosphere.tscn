@@ -12,7 +12,9 @@ albedo_texture = ExtResource("2_2qnxt")
 script = ExtResource("2_hpmll")
 
 [node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/rotation = Quaternion(-2.98023e-08, 1.19209e-07, -1.05879e-22, 1)
 bones/1/rotation = Quaternion(0.707107, -1.37679e-07, 3.09086e-08, 0.707107)
+bones/1/scale = Vector3(1, 1, 1)
 
 [node name="circle4" parent="Armature/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_26tst")

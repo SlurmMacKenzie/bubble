@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b6ptpodtycu0l" path="res://prefab/planet/planet.png" id="2_cvibs"]
 [ext_resource type="Script" path="res://prefab/Meteoroid/CentredEarth.gd" id="3_cv5ic"]
-[ext_resource type="PackedScene" uid="uid://ciss42im0l4vs" path="res://prefab/Meteoroid/meteoroidLauncher.tscn" id="3_qdeud"]
+[ext_resource type="PackedScene" uid="uid://ciss42im0l4vs" path="res://prefab/Meteoroid/MeteoroidLauncher.tscn" id="3_qdeud"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0rhxe"]
 
