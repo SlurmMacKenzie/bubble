@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkf5qq1w1kcvw"]
+[gd_scene load_steps=6 format=3 uid="uid://dkf5qq1w1kcvw"]
 
 [ext_resource type="Texture2D" uid="uid://brajmy6mbqwd8" path="res://assets/UI/Placeholder_TitleText.svg" id="1_paptk"]
 [ext_resource type="Script" path="res://scenes/mainmenu.gd" id="1_vdpfp"]
 [ext_resource type="AudioStream" uid="uid://rnpdh1mn48uv" path="res://assets/audio/UI Sounds/SpaceESCape_SFX_UIButton_v01.wav" id="3_7s0pf"]
 [ext_resource type="AudioStream" uid="uid://ciyksc57qinav" path="res://assets/audio/UI Sounds/SpaceESCape_SFX_UIButton_v02.wav" id="4_6kaqo"]
+[ext_resource type="AudioStream" uid="uid://bvn3ms73n1vyp" path="res://assets/audio/UI Sounds/MainMenu_music.wav" id="5_oen6a"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -50,6 +51,7 @@ icon_alignment = 1
 
 [node name="PlayButton_Sound" type="AudioStreamPlayer" parent="VBoxContainer/Play"]
 stream = ExtResource("3_7s0pf")
+volume_db = -12.0
 
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -58,6 +60,12 @@ text = "Quit"
 
 [node name="QuitButton_Sound" type="AudioStreamPlayer" parent="VBoxContainer/Quit"]
 stream = ExtResource("4_6kaqo")
+volume_db = -12.0
+
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_oen6a")
+volume_db = -6.0
+autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

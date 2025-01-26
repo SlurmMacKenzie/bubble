@@ -36,6 +36,7 @@ grow_vertical = 1
 
 [node name="MainMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_h1p2c")
+volume_db = -6.0
 autoplay = true
 
 [connection signal="ready" from="." to="." method="_on_ready"]
