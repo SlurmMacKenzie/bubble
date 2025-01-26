@@ -12,7 +12,7 @@
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_whnkw"]
-radius = 464.027
+radius = 411.011
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ffqbo"]
 bg_color = Color(0.768627, 0.509804, 0.631373, 0.423529)
@@ -44,7 +44,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15.584, 0)
-fov = 8.5
+fov = 10.0
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 8
@@ -52,13 +52,15 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -527.5
-offset_top = -492.5
-offset_right = 527.5
-offset_bottom = 492.5
+offset_left = -1042.0
+offset_top = -990.0
+offset_right = 13.0
+offset_bottom = -5.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
 texture = SubResource("ViewportTexture_3c1nh")
+stretch_mode = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-12, 18)
@@ -66,7 +68,7 @@ shape = SubResource("CircleShape2D_whnkw")
 debug_color = Color(0.858824, 0, 0.882353, 0.858824)
 
 [node name="Shield" parent="." instance=ExtResource("2_82cdq")]
-position = Vector2(0, -454)
+position = Vector2(-2, -460)
 gravity_scale = 0.0
 
 [node name="HealthBar" type="ProgressBar" parent="."]
