@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cnm0dryqavpj"]
 
 [ext_resource type="Script" path="res://prefab/intro/intro_scene.gd" id="1_hf52s"]
-[ext_resource type="Texture2D" uid="uid://bstkpuucf1v21" path="res://assets/art/story_01.png" id="1_hiycg"]
-[ext_resource type="FontFile" uid="uid://c8xkf4haihbf1" path="res://assets/Space_Mono/SpaceMono-Regular.ttf" id="2_n00wn"]
+[ext_resource type="Texture2D" uid="uid://ctqyrh7l0hx2t" path="res://assets/art/story_01.png" id="1_hiycg"]
+[ext_resource type="Texture2D" uid="uid://64qw5nedthc7" path="res://assets/art/tutorial/tutorial_blank.png" id="3_qswy4"]
 
 [node name="Intro" type="Control"]
 layout_mode = 3
@@ -13,44 +13,36 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hf52s")
 
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1147.0
+offset_bottom = 645.0
+texture = ExtResource("1_hiycg")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Cutscene order" type="Node2D" parent="."]
+
+[node name="Scene 0" type="Node2D" parent="Cutscene order"]
+
+[node name="TextureRect" type="TextureRect" parent="Cutscene order/Scene 0"]
+offset_left = 51.0
+offset_top = 65.0
+offset_right = 472.0
+offset_bottom = 331.0
+texture = ExtResource("3_qswy4")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="Scene 1" type="Node2D" parent="Cutscene order"]
 
-[node name="Scene_1" type="TextureRect" parent="Cutscene order/Scene 1"]
-offset_right = 1147.0
-offset_bottom = 645.0
-texture = ExtResource("1_hiycg")
+[node name="TextureRect" type="TextureRect" parent="Cutscene order/Scene 1"]
+offset_left = 51.0
+offset_top = 65.0
+offset_right = 472.0
+offset_bottom = 331.0
+texture = ExtResource("3_qswy4")
 expand_mode = 1
-stretch_mode = 5
-
-[node name="Scene 2" type="Node2D" parent="Cutscene order"]
-visible = false
-
-[node name="Scene_1" type="TextureRect" parent="Cutscene order/Scene 2"]
-offset_right = 1147.0
-offset_bottom = 645.0
-texture = ExtResource("1_hiycg")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Texts" type="Node2D" parent="Cutscene order/Scene 2"]
-
-[node name="Label" type="Label" parent="Cutscene order/Scene 2/Texts"]
-offset_left = 72.0
-offset_top = 68.0
-offset_right = 455.0
-offset_bottom = 97.0
-theme_override_fonts/font = ExtResource("2_n00wn")
-text = "Bubbles pop when they hit an asteroid. "
-
-[node name="Label2" type="Label" parent="Cutscene order/Scene 2/Texts"]
-offset_left = 63.0
-offset_top = 297.0
-offset_right = 446.0
-offset_bottom = 326.0
-theme_override_fonts/font = ExtResource("2_n00wn")
-text = "Click 'Done Probing' to progress time"
+stretch_mode = 4
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
