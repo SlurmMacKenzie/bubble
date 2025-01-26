@@ -14,7 +14,8 @@ var spawnedMeteoroidNodes:Array
 var rng:RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready() -> void:
-	#simulateLaunch()
+	GameState.game_started.connect(_onGameStateChanged)
+	#GameState.game_state_changed.connect(_onGameStateChanged)
 	pass
 
 func _process(delta: float) -> void:
@@ -84,3 +85,6 @@ func getClosestMeteorPos(pos:Vector2) -> Vector2:
 	
 	return closestMeteoroidPos
 			
+func _onGameStateChanged():
+	randomiseLaunchParams()
+	simulateLaunch()
