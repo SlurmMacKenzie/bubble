@@ -109,7 +109,7 @@ func _process(delta: float) -> void:
 	if Input.is_key_pressed(KEY_KP_2):
 		orbitDebugViewType = EOrbitDebugViewType.SHOW_CURRENT_AND_ARC
 		bUpdatedView = true
-	if Input.is_key_pressed(KEY_KP_1):
+	if Input.is_key_pressed(KEY_H):
 		orbitDebugViewType = EOrbitDebugViewType.SHOW_CURRENT
 		bUpdatedView = true
 	if Input.is_key_pressed(KEY_KP_0):
@@ -136,11 +136,12 @@ func increment_day() -> void:
 		var hit_shield:bool = am_hitting_shield()
 		if hit_shield:
 			print_debug("SHIELDED")
+			GameState.shieldSuccessful.emit()
 		else:
 			print_debug("HIT")
-			GameState.take_damage.emit(10)
+			GameState.take_damage.emit(20)
 		GameState.meteoroid_destroyed.emit()
-		
+		self.hide.call_deferred()
 	currentPositionIdx = currentPositionIdx + 1
 
 func get_current_position() -> Vector2:
