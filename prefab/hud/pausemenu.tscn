@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://30wnxmw6s71x"]
+[gd_scene load_steps=5 format=3 uid="uid://30wnxmw6s71x"]
 
 [ext_resource type="Script" path="res://scenes/mainmenu.gd" id="1_lcu6j"]
 [ext_resource type="AudioStream" uid="uid://rnpdh1mn48uv" path="res://assets/audio/UI Sounds/SpaceESCape_SFX_UIButton_v01.wav" id="2_7imt3"]
+[ext_resource type="FontFile" uid="uid://c8xkf4haihbf1" path="res://assets/Space_Mono/SpaceMono-Regular.ttf" id="2_as82n"]
 [ext_resource type="AudioStream" uid="uid://ciyksc57qinav" path="res://assets/audio/UI Sounds/SpaceESCape_SFX_UIButton_v02.wav" id="2_udaxm"]
 
 [node name="Control" type="Control"]
@@ -23,7 +24,7 @@ offset_left = -74.0
 offset_top = -80.0
 offset_right = 77.0
 offset_bottom = 73.0
-color = Color(0.806984, 0.85553, 0.937669, 1)
+color = Color(0.807843, 0.854902, 0.937255, 0.333333)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -43,6 +44,11 @@ theme_override_constants/separation = 10
 [node name="Resume" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(1, 0.835294, 0.407843, 1)
+theme_override_colors/font_pressed_color = Color(0.388235, 0.662745, 0.45098, 1)
+theme_override_colors/font_color = Color(0.984314, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_as82n")
+theme_override_font_sizes/font_size = 30
 text = "Resume"
 
 [node name="PlayButton_Sound" type="AudioStreamPlayer" parent="VBoxContainer/Resume"]
@@ -52,6 +58,11 @@ volume_db = -12.0
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(1, 0.835294, 0.407843, 1)
+theme_override_colors/font_pressed_color = Color(0.388235, 0.662745, 0.45098, 1)
+theme_override_colors/font_color = Color(0.984314, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_as82n")
+theme_override_font_sizes/font_size = 30
 text = "Quit"
 
 [node name="QuitButton_Sound" type="AudioStreamPlayer" parent="VBoxContainer/Quit"]

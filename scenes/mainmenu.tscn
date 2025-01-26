@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkf5qq1w1kcvw"]
+[gd_scene load_steps=11 format=3 uid="uid://dkf5qq1w1kcvw"]
 
-[ext_resource type="Texture2D" uid="uid://brajmy6mbqwd8" path="res://assets/UI/Placeholder_TitleText.svg" id="1_paptk"]
 [ext_resource type="Script" path="res://scenes/mainmenu.gd" id="1_vdpfp"]
+[ext_resource type="Texture2D" uid="uid://bb35ty4kftm41" path="res://assets/art/textures/bg.png" id="2_kqt5t"]
 [ext_resource type="AudioStream" uid="uid://rnpdh1mn48uv" path="res://assets/audio/UI Sounds/SpaceESCape_SFX_UIButton_v01.wav" id="3_7s0pf"]
+[ext_resource type="Texture2D" uid="uid://dmn8dq2lw6nvl" path="res://assets/UI/MainMenuTitle.svg" id="3_x6d3g"]
 [ext_resource type="AudioStream" uid="uid://ciyksc57qinav" path="res://assets/audio/UI Sounds/SpaceESCape_SFX_UIButton_v02.wav" id="4_6kaqo"]
 [ext_resource type="AudioStream" uid="uid://bvn3ms73n1vyp" path="res://assets/audio/UI Sounds/MainMenu_music.wav" id="5_oen6a"]
+[ext_resource type="FontFile" uid="uid://c8xkf4haihbf1" path="res://assets/Space_Mono/SpaceMono-Regular.ttf" id="7_rudjl"]
+[ext_resource type="PackedScene" uid="uid://0ifch05nhyn" path="res://prefab/planet/planet_animated.tscn" id="8_5b2vq"]
+[ext_resource type="PackedScene" uid="uid://b8u7nijmynmqn" path="res://prefab/planet/atmosphere.tscn" id="9_kbof3"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wfsah"]
+viewport_path = NodePath("Planet/SubViewport")
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -15,18 +22,57 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vdpfp")
 
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_oen6a")
+volume_db = -6.0
+autoplay = true
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(590.15, 323.6)
+scale = Vector2(1.0988, 1.11185)
+texture = ExtResource("2_kqt5t")
+
+[node name="Planet" type="Node" parent="."]
+
+[node name="SubViewport" type="SubViewport" parent="Planet"]
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+render_target_update_mode = 4
+
+[node name="planet" parent="Planet/SubViewport" instance=ExtResource("8_5b2vq")]
+
+[node name="atmosphere" parent="Planet/SubViewport" instance=ExtResource("9_kbof3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Planet/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 15.584, 0)
+fov = 8.0
+
+[node name="TextureRect" type="TextureRect" parent="Planet"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -428.0
+offset_top = -597.0
+offset_right = 624.0
+offset_bottom = 388.0
+grow_vertical = 0
+texture = SubResource("ViewportTexture_wfsah")
+stretch_mode = 3
+
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -466.0
-offset_right = 466.0
-offset_bottom = 376.0
+offset_left = -443.0
+offset_top = -68.0
+offset_right = 457.0
+offset_bottom = 432.0
 grow_horizontal = 2
-texture = ExtResource("1_paptk")
-expand_mode = 1
-stretch_mode = 5
+texture = ExtResource("3_x6d3g")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -35,19 +81,26 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -159.0
-offset_top = -50.0
-offset_right = 159.0
-offset_bottom = 50.0
+offset_left = -116.0
+offset_top = -61.0
+offset_right = 134.0
+offset_bottom = 139.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 7
+alignment = 1
 
 [node name="Play" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(1, 0.835294, 0.407843, 1)
+theme_override_colors/font_pressed_color = Color(0.388235, 0.662745, 0.45098, 1)
+theme_override_colors/font_color = Color(0.984314, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_rudjl")
+theme_override_font_sizes/font_size = 30
 text = "Play"
 icon_alignment = 1
+expand_icon = true
 
 [node name="PlayButton_Sound" type="AudioStreamPlayer" parent="VBoxContainer/Play"]
 stream = ExtResource("3_7s0pf")
@@ -56,16 +109,18 @@ volume_db = -12.0
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(1, 0.835294, 0.407843, 1)
+theme_override_colors/font_pressed_color = Color(0.388235, 0.662745, 0.45098, 1)
+theme_override_colors/font_color = Color(0.984314, 1, 1, 1)
+theme_override_fonts/font = ExtResource("7_rudjl")
+theme_override_font_sizes/font_size = 30
 text = "Quit"
+icon_alignment = 1
+expand_icon = true
 
 [node name="QuitButton_Sound" type="AudioStreamPlayer" parent="VBoxContainer/Quit"]
 stream = ExtResource("4_6kaqo")
 volume_db = -12.0
-
-[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_oen6a")
-volume_db = -6.0
-autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
