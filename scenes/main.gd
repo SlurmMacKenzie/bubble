@@ -12,6 +12,8 @@ var is_paused = false
 
 func _on_ready() -> void:
 	GameState.game_state_changed.connect(onGameStateChanged)
+	GameState.game_started.emit()
+
 
 		
 func _input(event: InputEvent) -> void:

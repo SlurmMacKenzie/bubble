@@ -7,8 +7,11 @@ var day_count = 0
 var shield_position:Vector2
 var shield_angle_extent:float
 
+signal game_started
 signal game_state_changed
 signal day_incremented
+signal take_damage(damage)
+signal meteoroid_destroyed
 
 
 func _changeState():

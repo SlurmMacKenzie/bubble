@@ -2,7 +2,7 @@ extends Node
 var shield:Shield
 var planet:Planet
 
-const radius:float = 320.0
+const radius:float = 350.0
 const rotatey_speed_per_frame:float = 1.0
 
 

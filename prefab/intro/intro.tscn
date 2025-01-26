@@ -1,0 +1,113 @@
+[gd_scene load_steps=10 format=3 uid="uid://cnm0dryqavpj"]
+
+[ext_resource type="Script" path="res://prefab/intro/intro_scene.gd" id="1_hf52s"]
+[ext_resource type="Texture2D" uid="uid://bu00qnhbds30t" path="res://assets/art/tutorial/story_01_nomajor_Page 1.png" id="2_7u4g1"]
+[ext_resource type="FontFile" uid="uid://c8xkf4haihbf1" path="res://assets/Space_Mono/SpaceMono-Regular.ttf" id="2_n00wn"]
+[ext_resource type="Texture2D" uid="uid://bwvbx0h7s3v18" path="res://assets/art/tutorial/tutorial_major_blank.png" id="3_7jxtb"]
+[ext_resource type="Texture2D" uid="uid://le5vgy7ygvsb" path="res://assets/art/tutorial/tutorial_major_01_move.png" id="4_6ucq2"]
+[ext_resource type="Texture2D" uid="uid://bkmuynffrj8p5" path="res://assets/art/tutorial/tutorial_major_02_bubble.png" id="5_k7ff4"]
+[ext_resource type="Texture2D" uid="uid://cajmjpk5v82jn" path="res://assets/art/tutorial/tutorial_major_03_done.png" id="6_2ig5v"]
+[ext_resource type="Texture2D" uid="uid://o4jcihdn4xpf" path="res://assets/art/tutorial/tutorial_major_04_shield.png" id="7_q0srp"]
+[ext_resource type="Texture2D" uid="uid://07s1tnlr6umi" path="res://assets/art/story_02.png" id="8_ankth"]
+
+[node name="Intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hf52s")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 646.0
+texture = ExtResource("2_7u4g1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Cutscene order" type="Node2D" parent="."]
+
+[node name="Scene 0" type="Node2D" parent="Cutscene order"]
+
+[node name="TextureRect" type="TextureRect" parent="Cutscene order/Scene 0"]
+offset_left = 51.0
+offset_top = 65.0
+offset_right = 656.0
+offset_bottom = 447.0
+texture = ExtResource("3_7jxtb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Scene 1" type="Node2D" parent="Cutscene order"]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="Cutscene order/Scene 1"]
+offset_left = 51.0
+offset_top = 65.0
+offset_right = 656.0
+offset_bottom = 447.0
+texture = ExtResource("4_6ucq2")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Scene 2" type="Node2D" parent="Cutscene order"]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="Cutscene order/Scene 2"]
+offset_left = 51.0
+offset_top = 65.0
+offset_right = 656.0
+offset_bottom = 447.0
+texture = ExtResource("5_k7ff4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Scene 3" type="Node2D" parent="Cutscene order"]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="Cutscene order/Scene 3"]
+offset_left = 51.0
+offset_top = 65.0
+offset_right = 656.0
+offset_bottom = 447.0
+texture = ExtResource("6_2ig5v")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Scene 4" type="Node2D" parent="Cutscene order"]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="Cutscene order/Scene 4"]
+offset_left = 51.0
+offset_top = 65.0
+offset_right = 656.0
+offset_bottom = 447.0
+texture = ExtResource("7_q0srp")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Scene 5" type="TextureRect" parent="Cutscene order"]
+visible = false
+offset_right = 1147.0
+offset_bottom = 645.0
+texture = ExtResource("8_ankth")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -59.0
+offset_top = 5.0
+offset_right = -14.0
+offset_bottom = 36.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("2_n00wn")
+theme_override_font_sizes/font_size = 30
+text = "Next"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

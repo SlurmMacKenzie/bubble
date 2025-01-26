@@ -3,7 +3,6 @@ extends Node2D
 var bubble:Bubble = null
 var ship:Ship
 var velocity:float = 0.0
-var bubble_count:int = 3
 
 func _ready() -> void:
 	ship = owner
@@ -11,16 +10,16 @@ func _ready() -> void:
 	
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("grow_bubble"):
-		if !bubble and bubble_count > 0:
+		if !bubble and Bubblemanager.bubble_count > 0:
 			var b = load("res://prefab/bubble/bubble.tscn")
 			bubble = b.instantiate()
 			ship.owner.add_child(bubble)
 			var pos:Vector2 = get_bubble_position()
 			bubble.update_position(pos)
-			bubble.set_pop_locaction(MeteoroidLauncher.getClosestMeteorPos(bubble.global_position))
+			bubble.set_pop_locaction(MeteoroidLauncher.getClosestMeteorPos(bubble.global_position).get_current_position())
 			$BubbleEmitter_Sound.play()
-			bubble_count -= 1
-			ship.update_sprite(bubble_count, true)
+			Bubblemanager.bubble_count -= 1
+			ship.update_sprite(Bubblemanager.bubble_count, true)
 			%bubble_emitted.emitting = true
 			
 
@@ -37,5 +36,5 @@ func _physics_process(delta: float) -> void:
 
 func on_game_state_changed():
 	if GameState.current_state == GameState.GAME_STATE.ASTEROID:
-		bubble_count = 3
-		ship.update_sprite(bubble_count)
+		Bubblemanager.bubble_count = Bubblemanager.bubble_limit
+		ship.update_sprite(Bubblemanager.bubble_count)

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Bubble"
-run/main_scene="res://scenes/mainmenu.tscn"
+run/main_scene="res://scenes/StartFlow.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://assets/art/ship_sprite/ship_001.png"
 

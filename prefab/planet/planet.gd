@@ -1,7 +1,6 @@
 extends StaticBody2D
 class_name Planet
 
-signal take_damage(damage)
 signal update_health_bar(health)
 
 signal planet_death_were_all_doomed()
@@ -12,7 +11,7 @@ var health:int = health_max
 func _ready() -> void:
 	position = get_viewport_rect().size / 2
 	
-	take_damage.connect(_take_damage)
+	GameState.take_damage.connect(_take_damage)
 	update_health_bar.emit(health)
 
 
