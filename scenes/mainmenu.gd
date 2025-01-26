@@ -15,7 +15,6 @@ func _on_quit_pressed() -> void:
 	get_tree().quit()
 
 func _on_resume_pressed() -> void:
-	var play_button_audio = $VBoxContainer/Resume/PlayButton_Sound
 	play_button_audio.play()
 	await(play_button_audio.finished)
 	main.pauseMenu()
