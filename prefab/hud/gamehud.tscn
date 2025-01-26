@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5o0bui23t30x"]
+[gd_scene load_steps=3 format=3 uid="uid://b5o0bui23t30x"]
 
 [ext_resource type="Script" path="res://prefab/hud/gamehud.gd" id="1_y0tva"]
+[ext_resource type="FontFile" uid="uid://c8xkf4haihbf1" path="res://assets/Space_Mono/SpaceMono-Regular.ttf" id="2_aoai5"]
 
 [node name="Gamehud" type="Control"]
 layout_mode = 3
@@ -18,15 +19,20 @@ layout_mode = 0
 offset_right = 123.0
 offset_bottom = 45.0
 focus_mode = 0
+theme_override_colors/font_hover_color = Color(1, 0.835294, 0.407843, 1)
+theme_override_colors/font_pressed_color = Color(0.388235, 0.662745, 0.45098, 1)
+theme_override_colors/font_color = Color(0.984314, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_aoai5")
+theme_override_font_sizes/font_size = 30
 text = "Done Probing"
 
 [node name="Label" type="Label" parent="."]
-visible = false
 layout_mode = 0
-offset_left = 132.0
-offset_top = 4.0
-offset_right = 208.0
-offset_bottom = 39.0
+offset_left = 256.0
+offset_right = 332.0
+offset_bottom = 53.0
+theme_override_fonts/font = ExtResource("2_aoai5")
+theme_override_font_sizes/font_size = 35
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1

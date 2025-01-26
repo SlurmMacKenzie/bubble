@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dpdjdd43o5hs3"]
+[gd_scene load_steps=8 format=3 uid="uid://dpdjdd43o5hs3"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_vw3jo"]
+[ext_resource type="Texture2D" uid="uid://bb35ty4kftm41" path="res://assets/art/textures/bg.png" id="2_q4wqn"]
 [ext_resource type="PackedScene" uid="uid://b57us8ouiqsvk" path="res://prefab/planet/planet.tscn" id="3_4t5cn"]
 [ext_resource type="PackedScene" uid="uid://conbxr1qqochx" path="res://prefab/ship/ship.tscn" id="3_an2gp"]
 [ext_resource type="PackedScene" uid="uid://30wnxmw6s71x" path="res://prefab/hud/pausemenu.tscn" id="4_38enr"]
@@ -9,6 +10,12 @@
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_vw3jo")
+
+[node name="background" type="Sprite2D" parent="."]
+z_index = -100
+position = Vector2(590.15, 323.6)
+scale = Vector2(1.0988, 1.11185)
+texture = ExtResource("2_q4wqn")
 
 [node name="Planet" parent="." instance=ExtResource("3_4t5cn")]
 position = Vector2(600, 300)
