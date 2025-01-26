@@ -12,10 +12,6 @@ var is_paused = false
 
 func _on_ready() -> void:
 	GameState.game_state_changed.connect(onGameStateChanged)
-	
-func _process(delta: float) -> void:
-	if imgui:
-		Debug.do_imgui()
 
 		
 func _input(event: InputEvent) -> void:

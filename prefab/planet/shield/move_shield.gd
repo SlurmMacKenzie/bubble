@@ -13,7 +13,10 @@ func _ready() -> void:
 	shield.rotation_degrees = 0.0
 
 func _physics_process(delta: float) -> void:
-	
+	# if we're moving the ship then we shouldn't be moving the shield
+	if GameState.current_state != GameState.GAME_STATE.ASTEROID:
+		return
+		
 	# rotate about centre of planet... 
 	# what direction is the mouse pointer from the planet?
 	var mouse_pos = get_viewport().get_mouse_position()

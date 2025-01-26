@@ -17,11 +17,9 @@ config/icon="res://assets/art/ship_sprite/ship_001.png"
 
 [autoload]
 
-Debug="*res://scripts/debug.gd"
-ImGuiRoot="*res://addons/imgui-godot/data/ImGuiRoot.tscn"
 GameState="*res://scripts/gamestate.gd"
 Bubblemanager="*res://scripts/bubblemanager.gd"
-MeteoroidLauncher="*res://prefab/Meteoroid/MeteoroidLauncher.gd"
+MeteoroidLauncher="*res://prefab/Meteoroid/meteoroidLauncher.gd"
 
 [debug]
 
@@ -34,10 +32,6 @@ window/stretch/mode="viewport"
 [dotnet]
 
 project/assembly_name="Bubble"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/imgui-godot/plugin.cfg")
 
 [input]
 
