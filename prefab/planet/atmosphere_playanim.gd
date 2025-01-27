@@ -5,10 +5,7 @@ func _ready() -> void:
 	$AnimationPlayer.current_animation = "ArmatureAction_001"
 	$AnimationPlayer.play()
 	
-	var planet = get_parent().get_parent()
-	if planet is Planet:
-		var the_planet:Planet = planet
-		the_planet.update_health_bar.connect(_update_health_bar)
+	GameState.update_health_bar.connect(_update_health_bar)
 
 const MIN_HEALTH_SCALE:float = 0.86
 const MAX_HEALTH_SCALE:float = 1.3

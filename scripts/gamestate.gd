@@ -14,6 +14,7 @@ signal take_damage(damage)
 signal meteoroid_destroyed
 signal shieldSuccessful
 signal planet_death_were_all_doomed
+signal update_health_bar(health)
 
 func _changeState():
 	if(current_state == GAME_STATE.SHIP):

@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5o0bui23t30x"]
+[gd_scene load_steps=8 format=3 uid="uid://b5o0bui23t30x"]
 
 [ext_resource type="Script" path="res://prefab/hud/gamehud.gd" id="1_y0tva"]
 [ext_resource type="FontFile" uid="uid://c8xkf4haihbf1" path="res://assets/Space_Mono/SpaceMono-Regular.ttf" id="2_aoai5"]
 [ext_resource type="Texture2D" uid="uid://bhmc6m5m36wo5" path="res://prefab/ship/bubbleparticle.png" id="3_inh6f"]
 [ext_resource type="FontFile" uid="uid://bbsobcv6b2fd" path="res://assets/Space_Mono/SpaceMono-Bold.ttf" id="4_i4l85"]
+[ext_resource type="Script" path="res://prefab/planet/health_bar.gd" id="4_o5j7h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ve7r"]
+bg_color = Color(0.768627, 0.509804, 0.631373, 0.423529)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bbbke"]
+bg_color = Color(0.0859444, 0.308437, 0.0831972, 1)
 
 [node name="Gamehud" type="Control"]
 layout_mode = 3
@@ -60,6 +67,17 @@ texture = ExtResource("3_inh6f")
 [node name="resourcelabel" type="Label" parent="HBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "9"
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 478.0
+offset_top = 11.0
+offset_right = 883.0
+offset_bottom = 51.0
+tooltip_text = "Planet Health"
+theme_override_font_sizes/font_size = 29
+theme_override_styles/background = SubResource("StyleBoxFlat_8ve7r")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bbbke")
+script = ExtResource("4_o5j7h")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0
